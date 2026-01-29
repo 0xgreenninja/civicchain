@@ -3,480 +3,449 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicChain Africa Impact | Blockchain for Good</title>
-  <meta name="description" content="Blockchain-enabled, transparent humanitarian and environmental impact across Sub-Saharan Africa." />
+  <title>CivicChain Africa | Transparent Impact, On-Chain</title>
   
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts: Plus Jakarta Sans (Geometric/Web3) & Inter (Human/Readable) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --dark: #0f172a;
-      --light: #f8fafc;
-      --muted: #64748b;
-      --white: #ffffff;
-      --radius: 12px;
-      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      /* Palette */
+      --midnight: #050A18;      /* Deep Indigo - Trust */
+      --indigo: #1C3FAA;        /* Blockchain/Primary */
+      --emerald: #10B981;       /* Growth/Sustainability */
+      --amber: #F59E0B;         /* Impact/Gold Accent */
+      --off-white: #FCFCFD;     /* Neutral */
+      --charcoal: #334155;      /* Text */
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      
+      --radius-lg: 24px;
+      --radius-md: 12px;
+      --shadow-soft: 0 20px 40px rgba(0,0,0,0.05);
     }
 
-    * { 
-      box-sizing: border-box; 
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      color: var(--dark);
-      background: var(--white);
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--midnight);
       overflow-x: hidden;
     }
 
-    /* TYPOGRAPHY */
-    h1, h2, h3, h4 { line-height: 1.2; margin-top: 0; font-weight: 700; }
-    p { color: var(--muted); }
-    a { text-decoration: none; transition: 0.3s; }
-
-    /* LAYOUT */
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 24px;
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      line-height: 1.1;
     }
 
-    /* NAV */
-    header {
+    /* --- BACKGROUND PATTERN (Subtle Africa/Hex Grid) --- */
+    .bg-pattern {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(var(--indigo) 0.5px, transparent 0.5px);
+      background-size: 30px 30px;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
       position: fixed;
-      width: 100%;
-      top: 0;
+      top: 0; width: 100%;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(252, 252, 253, 0.8);
+      backdrop-filter: blur(20px);
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0,0,0,0.05);
     }
-    .nav {
-      height: 80px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
     .logo {
-      font-weight: 800;
-      font-size: 22px;
-      color: var(--primary);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -1px;
+      color: var(--midnight);
     }
-    .nav-links {
+    .logo-box {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--indigo), var(--emerald));
+      border-radius: 10px;
       display: flex;
-      gap: 32px;
+      align-items: center; justify-content: center;
+      color: white;
     }
-    .nav-links a {
-      font-weight: 600;
-      color: var(--dark);
-      font-size: 15px;
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a { 
+      text-decoration: none; color: var(--charcoal); 
+      font-weight: 500; font-size: 0.95rem; 
+      transition: color 0.3s;
     }
-    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover { color: var(--indigo); }
 
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* HERO */
+    /* --- HERO SECTION --- */
     .hero {
-      padding: 160px 24px 100px;
-      background: radial-gradient(circle at top right, #eff6ff, transparent),
-                  radial-gradient(circle at bottom left, #f0fdf4, transparent);
-      text-align: center;
       position: relative;
+      padding: 200px 5% 120px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 60px;
+      max-width: 1400px;
+      margin: auto;
     }
-    .hero h1 {
-      font-size: clamp(40px, 8vw, 64px);
+    .hero-content h1 {
+      font-size: clamp(3rem, 6vw, 4.5rem);
       margin-bottom: 24px;
-      background: linear-gradient(to right, var(--dark), var(--primary));
+      color: var(--midnight);
+    }
+    .hero-content h1 span {
+      background: linear-gradient(to right, var(--indigo), var(--emerald));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.02em;
     }
-    .hero p {
-      max-width: 650px;
-      margin: 0 auto 40px;
-      font-size: 20px;
-      line-height: 1.5;
+    .hero-content p {
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      max-width: 600px;
+      margin-bottom: 40px;
+      line-height: 1.6;
     }
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* BUTTONS */
-    .btn {
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn.primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
-    }
-    .btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
-    }
-    .btn.secondary {
-      background: white;
-      border: 1px solid #e2e8f0;
-      color: var(--dark);
-    }
-    .btn.secondary:hover { background: #f1f5f9; }
-
-    /* SECTIONS */
-    section { padding: 100px 0; }
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .section-title h2 { font-size: 40px; margin-bottom: 16px; }
-    .badge {
-      display: inline-block;
-      padding: 6px 16px;
-      background: #dbeafe;
-      color: var(--primary);
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* CARDS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-    }
-    .card {
-      background: var(--white);
-      padding: 40px;
-      border-radius: var(--radius);
-      border: 1px solid #f1f5f9;
-      transition: all 0.4s ease;
+    .hero-image-container {
       position: relative;
-    }
-    .card:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow);
-      transform: translateY(-8px);
-    }
-    .card-icon {
-      width: 50px;
-      height: 50px;
-      background: #eff6ff;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      margin-bottom: 24px;
-    }
-    .card h3 { font-size: 22px; margin-bottom: 12px; }
-
-    /* IMPACT STRIP */
-    .impact-section {
-      background: var(--dark);
-      color: white;
-      padding: 80px 0;
-      position: relative;
+      border-radius: var(--radius-lg);
       overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: var(--shadow-soft);
     }
-    .impact-grid {
+    .hero-image-container img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.1);
+    }
+    .verified-badge {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 20px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center; gap: 8px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--emerald);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    /* --- BUTTONS --- */
+    .btn-group { display: flex; gap: 20px; }
+    .btn {
+      padding: 18px 36px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    .btn-primary {
+      background: var(--midnight);
+      color: white;
+      box-shadow: 0 15px 30px rgba(5, 10, 24, 0.2);
+    }
+    .btn-primary:hover { transform: translateY(-3px); background: var(--indigo); }
+    .btn-secondary {
+      border: 1px solid #E2E8F0;
+      color: var(--midnight);
+      background: white;
+    }
+    .btn-secondary:hover { background: #F8FAFC; }
+
+    /* --- IMPACT COUNTERS --- */
+    .impact-strip {
+      background: var(--midnight);
+      padding: 80px 5%;
+      border-radius: var(--radius-lg);
+      margin: 0 5% 100px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 40px;
-      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    .stat-number {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--secondary);
-      display: block;
-      margin-bottom: 8px;
+    .impact-strip::before {
+      content: "";
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.05;
     }
-    .stat-label { opacity: 0.7; font-weight: 500; }
+    .stat h3 { font-size: 3rem; color: var(--amber); margin-bottom: 8px; }
+    .stat p { font-size: 0.9rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 2px; }
 
-    /* TRANSPARENCY SECTION */
-    .step-list {
+    /* --- CARDS & GRID --- */
+    section { padding: 100px 5%; max-width: 1400px; margin: auto; }
+    .section-header { margin-bottom: 60px; }
+    .section-header h2 { font-size: 2.5rem; margin-bottom: 16px; }
+    .section-header p { color: var(--charcoal); font-size: 1.1rem; }
+
+    .card-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      border: 1px solid #F1F5F9;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .card:hover {
+      box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+      transform: translateY(-10px);
+      border-color: var(--amber);
+    }
+    .card-icon {
+      width: 50px; height: 50px;
+      background: #FFFBEB;
+      border-radius: 12px;
+      display: flex;
+      align-items: center; justify-content: center;
+      color: var(--amber);
+      margin-bottom: 24px;
     }
 
-    /* FOOTER */
+    /* --- DASHBOARD PREVIEW --- */
+    .transparency-dashboard {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .dash-visual {
+      background: #F8FAFC;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px dashed #CBD5E1;
+    }
+    .tx-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #EDF2F7;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    /* --- FOOTER --- */
     footer {
-      background: #020617;
-      color: #94a3b8;
-      padding: 80px 0 40px;
+      background: var(--midnight);
+      color: white;
+      padding: 100px 5% 40px;
+      margin-top: 100px;
     }
-    .footer-grid {
+    .footer-content {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
       gap: 60px;
-      margin-bottom: 60px;
+      margin-bottom: 80px;
     }
-    footer h4 { color: white; margin-bottom: 24px; }
-    footer a { color: #94a3b8; display: block; margin-bottom: 12px; }
-    footer a:hover { color: var(--primary); }
-    .bottom-bar {
-      border-top: 1px solid #1e293b;
+    .footer-content h4 { color: var(--amber); margin-bottom: 24px; }
+    .footer-content a { color: rgba(255,255,255,0.6); text-decoration: none; display: block; margin-bottom: 12px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 40px;
-      text-align: center;
-      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      opacity: 0.6;
     }
 
-    /* MOBILE NAV */
+    /* --- UTILITIES --- */
+    .text-emerald { color: var(--emerald); }
+    .glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(28, 63, 170, 0.1) 0%, transparent 70%);
+      z-index: -1;
+      filter: blur(40px);
+    }
+
     @media (max-width: 992px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .mobile-menu-btn { display: block; }
-      .hero { padding-top: 120px; }
-      .step-list { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-content p { margin: 0 auto 40px; }
+      .btn-group { justify-content: center; }
+      .footer-content { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <div class="nav">
-      <div class="logo">
-        <i data-lucide="layers"></i>
-        CivicChain Africa
-      </div>
-      <nav class="nav-links">
-        <a href="#about">Mission</a>
-        <a href="#pillars">Impact Areas</a>
-        <a href="#transparency">Transparency</a>
-        <a href="#join">Get Involved</a>
-      </nav>
-      <button class="mobile-menu-btn">
-        <i data-lucide="menu"></i>
-      </button>
+<div class="bg-pattern"></div>
+<div class="glow" style="top: 10%; right: -10%;"></div>
+
+<nav>
+  <div class="logo">
+    <div class="logo-box">
+      <i data-lucide="layers"></i>
     </div>
+    CivicChain Africa
   </div>
-</header>
+  <div class="nav-links">
+    <a href="#impact">Impact</a>
+    <a href="#how">How it Works</a>
+    <a href="#transparency">Transparency</a>
+    <a href="#partners">Partners</a>
+  </div>
+  <a href="#" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.9rem;">Donate On-Chain</a>
+</nav>
 
 <section class="hero">
-  <div class="container">
-    <span class="badge">Decentralized Philanthropy</span>
-    <h1>Transparent Aid for <br><span style="color:var(--primary)">Sub-Saharan Africa</span></h1>
-    <p>
-      Revolutionizing humanitarian and environmental action through blockchain accountability. We turn trust into code and donations into measurable impact.
-    </p>
-    <div class="cta-group">
-      <button class="btn primary">
-        Support a Project <i data-lucide="arrow-right" size="18"></i>
-      </button>
-      <button class="btn secondary">
-        <i data-lucide="bar-chart-3" size="18"></i> View Impact Dashboard
-      </button>
+  <div class="hero-content">
+    <span class="text-emerald" style="font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">Blockchain-Enabled Philanthropy</span>
+    <h1>Redefining <br><span>Humanitarian Aid</span> in Africa.</h1>
+    <p>CivicChain is a Web3-native impact organization delivering radical transparency and measurable climate action through decentralized technology.</p>
+    <div class="btn-group">
+      <a href="#" class="btn btn-primary">Our Projects <i data-lucide="arrow-right"></i></a>
+      <a href="#" class="btn btn-secondary">Impact Dashboard</a>
+    </div>
+  </div>
+  <div class="hero-image-container">
+    <!-- Unsplash: Authentic African builder/community -->
+    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070&auto=format&fit=crop" alt="Community Builders">
+    <div class="verified-badge">
+      <i data-lucide="check-circle-2"></i> 100% On-Chain Verified
     </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="container">
-    <div class="section-title">
-      <span class="badge">Our Purpose</span>
-      <h2>Built for Trust</h2>
+<div class="impact-strip">
+  <div class="stat">
+    <h3>$1.2M+</h3>
+    <p>Impact Capital Deployed</p>
+  </div>
+  <div class="stat">
+    <h3>12k+</h3>
+    <p>Trees Reforested</p>
+  </div>
+  <div class="stat">
+    <h3>50k+</h3>
+    <p>Lives Impacted</p>
+  </div>
+  <div class="stat">
+    <h3>0.0%</h3>
+    <p>Fund Leakage</p>
+  </div>
+</div>
+
+<section id="impact">
+  <div class="section-header">
+    <span class="text-emerald" style="font-weight: 700; font-size: 0.8rem;">PILLARS OF CHANGE</span>
+    <h2>Driving Sustainable Growth</h2>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon"><i data-lucide="wind"></i></div>
+      <h3>Climate Action</h3>
+      <p>Decentralized reforestation and renewable energy programs with IoT-verified data on-chain.</p>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon"><i data-lucide="target"></i></div>
-        <h3>The Mission</h3>
-        <p>Deliver transparent, auditable, and scalable humanitarian impact through blockchain-based accountability and community-led outcomes.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon"><i data-lucide="eye"></i></div>
-        <h3>The Vision</h3>
-        <p>A Sub-Saharan Africa where climate action and economic empowerment are fully transparent, decentralized, and community-driven.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon"><i data-lucide="shield-check"></i></div>
-        <h3>Accountability</h3>
-        <p>Moving beyond promises. Every dollar is tracked on-chain from the donor to the final beneficiary with zero leakages.</p>
-      </div>
+    <div class="card">
+      <div class="card-icon"><i data-lucide="heart-handshake"></i></div>
+      <h3>Humanitarian Aid</h3>
+      <p>Direct cash assistance and emergency relief delivered through stablecoin ecosystems with zero middleman fees.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i data-lucide="graduation-cap"></i></div>
+      <h3>Digital Literacy</h3>
+      <p>Empowering the next generation of African builders with Web3 skills and financial tools.</p>
     </div>
   </div>
 </section>
 
-<section id="pillars" style="background:#f8fafc">
-  <div class="container">
-    <div class="section-title">
-      <span class="badge">What We Do</span>
-      <h2>Four Pillars of Change</h2>
+<section id="transparency" style="background: #F1F5F9; border-radius: var(--radius-lg);">
+  <div class="transparency-dashboard">
+    <div>
+      <span class="text-emerald" style="font-weight: 700; font-size: 0.8rem;">WEB3 NATIVE</span>
+      <h2>Radical Transparency</h2>
+      <p>We use Multisig governance and Milestone-based smart contracts. Funds are only released when impact is proven.</p>
+      <ul style="padding: 0; list-style: none; margin-top: 24px;">
+        <li style="display: flex; gap: 10px; margin-bottom: 12px;"><i data-lucide="shield-check" class="text-emerald"></i> Public Audit Logs</li>
+        <li style="display: flex; gap: 10px; margin-bottom: 12px;"><i data-lucide="shield-check" class="text-emerald"></i> DAO Governance</li>
+        <li style="display: flex; gap: 10px; margin-bottom: 12px;"><i data-lucide="shield-check" class="text-emerald"></i> Real-time Tracking</li>
+      </ul>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon"><i data-lucide="heart"></i></div>
-        <h3>Social Impact</h3>
-        <p>Direct support for healthcare, education, and youth empowerment across Nigeria and the wider region.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon"><i data-lucide="leaf"></i></div>
-        <h3>Climate Action</h3>
-        <p>Reforestation and renewable energy projects tracked via IoT and verified on the blockchain.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon"><i data-lucide="cpu"></i></div>
-        <h3>Web3 Infrastructure</h3>
-        <p>On-chain multisig wallets and smart-contract grants to ensure funds hit predefined milestones.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon"><i data-lucide="users"></i></div>
-        <h3>Capacity Building</h3>
-        <p>Supporting local SMEs and digital literacy programs to foster a sustainable Web3 ecosystem.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="impact-section">
-  <div class="container">
-    <div class="impact-grid">
-      <div>
-        <span class="stat-number">100%</span>
-        <span class="stat-label">On-chain Traceability</span>
-      </div>
-      <div>
-        <span class="stat-number">0%</span>
-        <span class="stat-label">Intermediary Fees</span>
-      </div>
-      <div>
-        <span class="stat-number">SDG</span>
-        <span class="stat-label">Alignment with UN Goals</span>
-      </div>
-      <div>
-        <span class="stat-number">24/7</span>
-        <span class="stat-label">Public Auditing</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="transparency">
-  <div class="container">
-    <div class="section-title">
-      <span class="badge">Technology</span>
-      <h2>How Transparency Works</h2>
-    </div>
-    <div class="step-list">
-      <div class="card">
-        <div class="card-icon">1</div>
-        <h3>Multisig Governance</h3>
-        <p>Funds are held in secure wallets requiring multiple approvals from independent board members and auditors.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">2</div>
-        <h3>Milestone Release</h3>
-        <p>Smart contracts release funds only when project milestones are verified by local community data.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">3</div>
-        <h3>Real-time Ledger</h3>
-        <p>Anyone, anywhere, can view the movement of funds on the public explorer in real-time.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="join" style="padding-bottom: 140px;">
-  <div class="container">
-    <div style="background: var(--primary); border-radius: 24px; padding: 60px 24px; text-align: center; color: white;">
-      <h2 style="color: white; margin-bottom: 16px;">Ready to Change the Narrative?</h2>
-      <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 32px; font-size: 18px;">
-        Join our DAO or partner with us to bring blockchain-enabled transparency to your next impact project.
-      </p>
-      <div class="cta-group">
-        <button class="btn" style="background: white; color: var(--primary);">Become a Partner</button>
-        <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid white; color: white;">Contact Us</button>
-      </div>
+    <div class="dash-visual">
+      <div style="font-weight: 700; margin-bottom: 15px; font-size: 0.9rem;">Live Transaction Ledger (Polygon Mainnet)</div>
+      <div class="tx-row"><span>0x7a...4e1</span> <span class="text-emerald">+5,000 USDC</span></div>
+      <div class="tx-row"><span>0x2b...9a2</span> <span class="text-emerald">+12,500 USDC</span></div>
+      <div class="tx-row"><span>Grant #42 Released</span> <span style="color:var(--indigo)">-3,000 USDC</span></div>
+      <div class="tx-row"><span>0x9f...11c</span> <span class="text-emerald">+2,100 USDC</span></div>
+      <div style="margin-top: 15px; text-align: center; font-size: 0.7rem; color: var(--charcoal); opacity: 0.5;">...syncing with block 54892...</div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="logo" style="color: white; margin-bottom: 20px;">
-          <i data-lucide="layers"></i> CivicChain Africa
+  <div class="footer-content">
+    <div>
+      <div class="logo" style="color: white; margin-bottom: 20px;">
+        <div class="logo-box">
+          <i data-lucide="layers"></i>
         </div>
-        <p>A blockchain-native NGO dedicated to building a more accountable and sustainable future for Sub-Saharan Africa.</p>
+        CivicChain Africa
       </div>
-      <div>
-        <h4>Focus Areas</h4>
-        <a href="#">Humanitarian Aid</a>
-        <a href="#">Climate Adaptation</a>
-        <a href="#">Financial Inclusion</a>
-      </div>
-      <div>
-        <h4>Organization</h4>
-        <a href="#">Transparency Report</a>
-        <a href="#">Whitepaper</a>
-        <a href="#">Governance</a>
-      </div>
-      <div>
-        <h4>Social</h4>
-        <a href="#">Twitter</a>
-        <a href="#">GitHub</a>
-        <a href="#">Discord</a>
+      <p style="opacity: 0.6; line-height: 1.8;">The first blockchain-native NGO in Sub-Saharan Africa focused on auditable social and environmental impact.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#">Projects</a>
+      <a href="#">Governance</a>
+      <a href="#">Impact Reports</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">On-chain License</a>
+    </div>
+    <div>
+      <h4>Join the Community</h4>
+      <p style="font-size: 0.9rem; opacity: 0.6; margin-bottom: 20px;">Get updates on our latest projects and impact milestones.</p>
+      <div style="display:flex; gap: 10px;">
+        <i data-lucide="twitter"></i>
+        <i data-lucide="github"></i>
+        <i data-lucide="message-circle"></i>
       </div>
     </div>
-    <div class="bottom-bar">
-      &copy; 2024 CivicChain Africa Impact. Built on-chain.
-    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 CivicChain Africa. Powered by Transparency.</p>
+    <p>Aligned with UN SDGs 1, 4, 13 & 17</p>
   </div>
 </footer>
 
 <script>
-  // Initialize Lucide Icons
   lucide.createIcons();
-
-  // Simple Header Scroll Effect
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-      header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
-      header.style.padding = '5px 0';
-    } else {
-      header.style.boxShadow = 'none';
-      header.style.padding = '0';
-    }
-  });
 </script>
 
 </body>
