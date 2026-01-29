@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicChain Africa | On-Chain Impact</title>
+  <title>CivicChain Africa Impact | Revolutionizing Aid</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Space+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --midnight: #030712;      
-      --indigo: #1e40af;        
-      --emerald: #059669;       
-      --amber: #f59e0b;         
-      --off-white: #f9fafb;     
+      /* Palette based on PDF and Senior Design requirements */
+      --midnight: #050A18;      /* Deep indigo (Trust) */
+      --indigo: #1C3FAA;        /* Primary Web3 Blue */
+      --emerald: #10B981;       /* Secondary Africa Green */
+      --amber: #F59E0B;         /* Gold Impact Accent */
+      --off-white: #FCFCFD;     
+      --charcoal: #334155;      
       --glass: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --radius-lg: 32px;
+      --radius-lg: 24px;
     }
 
     /* --- PRELOADER --- */
@@ -28,160 +30,157 @@
       background: var(--midnight);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 10000;
+      transition: opacity 0.8s ease-in-out;
     }
     
-    .preloader-content { position: relative; text-align: center; z-index: 2; }
-    
-    .loader-logo {
-      width: 120px; height: auto; margin-bottom: 30px;
-      animation: pulseLogo 2s infinite ease-in-out;
+    .preloader-nodes {
+      position: absolute; width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .floating-node {
+      position: absolute; width: 4px; height: 4px;
+      background: var(--amber); border-radius: 50%;
+      opacity: 0.4; animation: floatUp 8s infinite linear;
     }
 
-    .progress-container {
-      width: 240px; height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px; overflow: hidden;
-      position: relative;
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) scale(1); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
-    .progress-bar {
+
+    .loader-box { text-align: center; z-index: 2; }
+    .loader-logo { width: 100px; margin-bottom: 20px; animation: pulse 2s infinite; }
+    
+    .progress-track {
+      width: 200px; height: 3px; background: rgba(255,255,255,0.1);
+      border-radius: 10px; overflow: hidden; margin: 0 auto;
+    }
+    .progress-fill {
       width: 0%; height: 100%;
       background: linear-gradient(90deg, var(--indigo), var(--emerald), var(--amber));
-      transition: width 0.4s ease;
+      transition: width 0.3s;
     }
 
-    /* Floating Nodes Animation */
-    .nodes-container {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      overflow: hidden; pointer-events: none;
-    }
-    .node {
-      position: absolute; background: var(--amber);
-      border-radius: 50%; opacity: 0.3;
-      filter: blur(2px);
-      animation: floatNode 10s infinite linear;
-    }
-
-    @keyframes floatNode {
-      0% { transform: translateY(110vh) translateX(0); }
-      100% { transform: translateY(-10vh) translateX(50px); }
-    }
-    @keyframes pulseLogo {
+    @keyframes pulse {
       0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--indigo)); }
-      50% { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--indigo)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 15px var(--indigo)); }
     }
 
     /* --- GLOBAL STYLES --- */
+    * { box-sizing: border-box; scroll-behavior: smooth; }
     body {
       margin: 0; font-family: 'Inter', sans-serif;
-      background-color: var(--midnight); color: white;
+      background: var(--midnight); color: var(--off-white);
       overflow-x: hidden;
     }
-    
-    /* Africa-Tech Pattern Background */
-    .africa-grid {
+
+    /* African-inspired Tech Background (No Grid Lines) */
+    .bg-canvas {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: 
-        linear-gradient(rgba(30, 64, 175, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30, 64, 175, 0.05) 1px, transparent 1px);
-      background-size: 50px 50px;
       z-index: -1;
-    }
-    .africa-grid::after {
-      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 50%, transparent, var(--midnight));
-    }
-
-    /* --- WEB3 UI ELEMENTS --- */
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      transition: 0.4s;
-    }
-    .glass-card:hover {
-      border-color: var(--amber);
-      box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
-      transform: translateY(-5px);
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(28, 63, 170, 0.15), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1), transparent 40%);
     }
 
-    .nav-blur {
-      position: fixed; top: 20px; left: 50%;
-      transform: translateX(-50%);
-      width: 90%; max-width: 1200px;
-      height: 70px; display: flex; align-items: center;
-      justify-content: space-between; padding: 0 30px;
-      z-index: 1000;
-    }
+    h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; line-height: 1.1; }
 
+    /* --- NAVIGATION --- */
+    nav {
+      position: fixed; top: 0; width: 100%; height: 90px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; z-index: 1000;
+      background: rgba(5, 10, 24, 0.7); backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.2rem; }
+    .logo img { height: 32px; }
+
+    /* --- HERO SECTION --- */
     .hero {
-      padding: 220px 5% 100px;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center;
+      padding: 200px 6% 100px;
+      display: grid; grid-template-columns: 1.2fr 0.8fr;
+      align-items: center; gap: 60px;
+      max-width: 1400px; margin: auto;
     }
-    .hero h1 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800; letter-spacing: -3px;
-      line-height: 0.9; margin-bottom: 30px;
-    }
-    .hero h1 span {
-      background: linear-gradient(to right, #fff, var(--amber));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    /* Monospace Text for Web3 Feel */
-    .tech-label {
-      font-family: 'Space Mono', monospace;
-      text-transform: uppercase; letter-spacing: 3px;
-      color: var(--emerald); font-size: 0.8rem;
-      margin-bottom: 20px; display: block;
-    }
+    .hero h1 { font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 24px; }
+    .hero h1 span { color: var(--amber); }
+    .hero p { font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-bottom: 40px; }
 
     .btn-web3 {
-      background: white; color: var(--midnight);
-      padding: 20px 40px; border-radius: 100px;
-      font-weight: 800; text-decoration: none;
+      padding: 18px 36px; border-radius: 12px;
+      font-weight: 700; text-decoration: none;
       display: inline-flex; align-items: center; gap: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      transition: 0.3s;
+      transition: 0.3s; font-size: 0.9rem;
     }
-    .btn-web3:hover {
-      background: var(--amber);
-      box-shadow: 0 0 30px var(--amber);
-    }
+    .btn-primary { background: white; color: var(--midnight); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    .btn-primary:hover { background: var(--amber); transform: translateY(-3px); }
 
-    .impact-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px; padding: 100px 5%;
+    /* --- PILLARS SECTION (From PDF) --- */
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; padding: 100px 6%;
     }
+    .pillar-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding: 40px; border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+      transition: 0.4s;
+    }
+    .pillar-card:hover { border-color: var(--amber); transform: translateY(-10px); }
+    .pillar-card .icon { 
+      width: 50px; height: 50px; background: rgba(245, 158, 11, 0.1); 
+      border-radius: 12px; display: flex; align-items: center; 
+      justify-content: center; color: var(--amber); margin-bottom: 24px;
+    }
+    .pillar-card h3 { margin-bottom: 12px; font-size: 1.3rem; }
+    .pillar-card p { font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
+    .card-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--emerald); display: block; margin-bottom: 8px; }
 
-    /* Floating Stats Bar */
-    .stat-bar {
-      display: flex; justify-content: space-around;
-      padding: 40px; margin-top: -50px;
+    /* --- OPERATIONAL HIGHLIGHTS (PDF Page 8) --- */
+    .highlights {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 100px 6%; border-radius: 40px; margin: 0 4%;
     }
-    .stat-item h4 { 
-      font-size: 2.5rem; color: var(--amber); margin: 0; 
+    .highlights-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px; margin-top: 50px;
+    }
+    .highlight-item h4 { color: var(--amber); font-size: 1.1rem; margin-bottom: 10px; }
+    .highlight-item p { font-size: 0.85rem; color: #94a3b8; }
+
+    /* --- TRANSPARENCY DASHBOARD --- */
+    .dashboard-preview {
+      padding: 100px 6%; max-width: 1400px; margin: auto;
+    }
+    .dashboard-ui {
+      background: #000; border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg); padding: 40px;
       font-family: 'Space Mono', monospace;
     }
-
-    /* Dashboard UI Preview */
-    .tx-ledger {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem; color: #94a3b8;
-    }
-    .tx-item {
+    .ledger-row {
       display: flex; justify-content: space-between;
-      border-bottom: 1px solid var(--glass-border);
-      padding: 15px 0;
+      padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.8rem;
+    }
+    .status-badge {
+      background: rgba(16, 185, 129, 0.15); color: var(--emerald);
+      padding: 4px 10px; border-radius: 4px; font-size: 0.7rem;
     }
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 3.5rem; }
-      .nav-blur { width: 95%; }
+    footer {
+      padding: 100px 6% 40px; border-top: 1px solid var(--glass-border);
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .footer-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; font-size: 0.8rem; }
+
+    @media (max-width: 992px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin: 0 auto 40px; }
+      footer { flex-direction: column; align-items: center; gap: 40px; }
     }
   </style>
 </head>
@@ -189,144 +188,179 @@
 
   <!-- PRELOADER -->
   <div id="preloader">
-    <div class="nodes-container" id="nodes"></div>
-    <div class="preloader-content">
-      <!-- REPLACE SRC with CCA 1.png -->
-      <img src="CCA 1.png" alt="CCA Logo" class="loader-logo" onerror="this.src='https://via.placeholder.com/120x120?text=CCA'">
-      <div class="progress-container">
-        <div class="progress-bar" id="bar"></div>
+    <div class="preloader-nodes" id="nodes-bg"></div>
+    <div class="loader-box">
+      <!-- Reference to CCA 1.png -->
+      <img src="CCA 1.png" alt="CCA" class="loader-logo" onerror="this.src='https://via.placeholder.com/100?text=CCA'">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar"></div>
       </div>
-      <p style="font-family: 'Space Mono', monospace; font-size: 10px; margin-top: 15px; color: var(--amber); letter-spacing: 2px;">SYNCING WITH MAINNET...</p>
+      <p style="font-family: 'Space Mono', monospace; font-size: 10px; margin-top: 15px; letter-spacing: 3px; color: var(--amber);">INITIALIZING ON-CHAIN PROTOCOLS</p>
     </div>
   </div>
 
-  <div class="africa-grid"></div>
+  <div class="bg-canvas"></div>
 
-  <nav class="nav-blur glass-card">
-    <div style="font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
-      <div style="width:30px; height:30px; background: var(--amber); border-radius: 6px;"></div>
+  <nav>
+    <div class="logo">
+      <img src="CCA 1.png" alt="Logo" onerror="this.style.display='none'">
       CivicChain Africa
     </div>
     <div style="display: flex; gap: 30px;" class="nav-links">
-      <a href="#" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">MISSION</a>
-      <a href="#" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">LEDGER</a>
-      <a href="#" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">DAO</a>
+      <a href="#mission" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">MISSION</a>
+      <a href="#pillars" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">PILLARS</a>
+      <a href="#transparency" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">TRANSPARENCY</a>
     </div>
-    <a href="#" class="btn-web3" style="padding: 10px 20px; font-size: 0.8rem;">CONNECT</a>
+    <a href="#" class="btn-web3" style="padding: 12px 24px; background: var(--indigo); color: white;">CONNECT WALLET</a>
   </nav>
 
-  <section class="hero">
-    <span class="tech-label">// DECENTRALIZED IMPACT PROTOCOL</span>
-    <h1>Building a <span>Sovereign</span> <br>Future for Africa.</h1>
-    <p style="max-width: 700px; color: #94a3b8; font-size: 1.2rem; margin-bottom: 40px;">
-      The first blockchain-native NGO in Sub-Saharan Africa. We turn humanitarian aid into verifiable on-chain milestones. No leakages. No borders.
-    </p>
-    <div style="display: flex; gap: 20px;">
-      <a href="#" class="btn-web3">START DONATION <i data-lucide="zap"></i></a>
-      <a href="#" class="btn-web3" style="background: transparent; border: 1px solid white; color: white;">EXPLORE DAO</a>
-    </div>
-  </section>
-
-  <div class="stat-bar glass-card" style="margin: 0 5%;">
-    <div class="stat-item">
-      <p style="font-size: 0.7rem; opacity: 0.5;">TOTAL VALUE DEPLOYED</p>
-      <h4>$1,240,000</h4>
-    </div>
-    <div class="stat-item">
-      <p style="font-size: 0.7rem; opacity: 0.5;">PROJECTS VERIFIED</p>
-      <h4>84</h4>
-    </div>
-    <div class="stat-item">
-      <p style="font-size: 0.7rem; opacity: 0.5;">CARBON OFFSET (TONS)</p>
-      <h4>12,402</h4>
-    </div>
-  </div>
-
-  <section class="impact-grid">
-    <div class="glass-card" style="padding: 40px;">
-      <div style="color: var(--amber); margin-bottom: 20px;"><i data-lucide="shield-check" size="40"></i></div>
-      <h3>On-Chain Audits</h3>
-      <p style="color: #94a3b8;">Every Naira, Cedi, and Dollar is tracked via public ledgers. Real-time accountability for global donors.</p>
-    </div>
-    <div class="glass-card" style="padding: 40px;">
-      <div style="color: var(--emerald); margin-bottom: 20px;"><i data-lucide="leaf" size="40"></i></div>
-      <h3>Climate Oracle</h3>
-      <p style="color: #94a3b8;">We use IoT-enabled planting sensors to trigger milestone payments to local African farmers automatically.</p>
-    </div>
-    <div class="glass-card" style="padding: 40px;">
-      <div style="color: var(--indigo); margin-bottom: 20px;"><i data-lucide="users" size="40"></i></div>
-      <h3>Community DAO</h3>
-      <p style="color: #94a3b8;">Decisions aren't made in boardrooms, but by the communities themselves via governance tokens.</p>
-    </div>
-  </section>
-
-  <section style="padding: 0 5% 100px;">
-    <div class="glass-card" style="display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;">
-      <div style="padding: 60px;">
-        <span class="tech-label">Live Transparency Engine</span>
-        <h2>Radical Visibility</h2>
-        <p style="color: #94a3b8;">Monitor live grant distributions as they happen. We bridge the gap between digital wealth and physical impact.</p>
-        <div class="tx-ledger">
-          <div class="tx-item">
-            <span>0x7a...4e1</span> <span>REFORESTATION GRANT</span> <span style="color: var(--emerald)">+1,200 USDC</span>
-          </div>
-          <div class="tx-item">
-            <span>0x2b...9a2</span> <span>EDU_RESOURCES_LAGOS</span> <span style="color: var(--emerald)">+4,500 USDC</span>
-          </div>
-          <div class="tx-item">
-            <span>0x9f...11c</span> <span>EMERGENCY_SOLAR</span> <span style="color: var(--emerald)">+900 USDC</span>
-          </div>
-        </div>
+  <section class="hero" id="mission">
+    <div class="hero-content">
+      <span class="card-label">// PILOTING IN NIGERIA</span>
+      <h1>Revolutionizing <span>Aid</span> in Sub-Saharan Africa.</h1>
+      <p>A pioneering organization leveraging blockchain technology to deliver transparent, auditable, and scalable humanitarian solutions.</p>
+      <div style="display: flex; gap: 20px;">
+        <a href="#" class="btn-web3 btn-primary">Support Mission <i data-lucide="heart"></i></a>
+        <a href="#" class="btn-web3" style="border: 1px solid var(--glass-border); color: white;">Read Whitepaper</a>
       </div>
-      <div style="background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+    </div>
+    <div class="hero-viz">
+      <div class="pillar-card" style="border-color: var(--indigo);">
+        <span class="card-label">OUR VISION</span>
+        <p style="color: white; font-style: italic; font-size: 1rem;">"A Sub-Saharan Africa where humanitarian aid, environmental protection, and economic empowerment are transparent, community-driven, and blockchain-enabled."</p>
+      </div>
     </div>
   </section>
 
-  <footer style="padding: 100px 5% 50px; border-top: 1px solid var(--glass-border); text-align: center;">
-    <img src="CCA 1.png" alt="Logo" style="width: 60px; filter: grayscale(1) invert(1); opacity: 0.5; margin-bottom: 30px;">
-    <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px;">
-      <a href="#" style="color: #94a3b8; text-decoration: none;">TWITTER</a>
-      <a href="#" style="color: #94a3b8; text-decoration: none;">GITHUB</a>
-      <a href="#" style="color: #94a3b8; text-decoration: none;">DISCORD</a>
+  <section id="pillars">
+    <div style="padding: 0 6%;">
+      <span class="card-label">// IMPACT FRAMEWORK</span>
+      <h2>Four Cardinal Pillars</h2>
     </div>
-    <p style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #475569;">© 2024 CIVICCHAIN AFRICA | DISTRIBUTED LEDGER TECHNOLOGY FOR GOOD</p>
+    <div class="pillars-grid">
+      <!-- Pillar 1 -->
+      <div class="pillar-card">
+        <span class="card-label">NORTH</span>
+        <div class="icon"><i data-lucide="hand"></i></div>
+        <h3>Humanitarian & Social</h3>
+        <p>Direct charity, healthcare, education, emergency relief, gender equality, and youth empowerment.</p>
+      </div>
+      <!-- Pillar 2 -->
+      <div class="pillar-card">
+        <span class="card-label">EAST</span>
+        <div class="icon"><i data-lucide="leaf"></i></div>
+        <h3>Climate Action</h3>
+        <p>Climate adaptation, reforestation, waste management, renewable energy, and ecosystem protection.</p>
+      </div>
+      <!-- Pillar 3 -->
+      <div class="pillar-card">
+        <span class="card-label">SOUTH</span>
+        <div class="icon"><i data-lucide="layers"></i></div>
+        <h3>Blockchain Governance</h3>
+        <p>On-chain multisig wallets, smart-contract grants, and independent audits for 100% accountability.</p>
+      </div>
+      <!-- Pillar 4 -->
+      <div class="pillar-card">
+        <span class="card-label">WEST</span>
+        <div class="icon"><i data-lucide="users"></i></div>
+        <h3>Capacity Building</h3>
+        <p>Strategic alliances with Web3 projects, supporting local innovators and SMEs in the region.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="highlights">
+    <span class="card-label">// OPERATIONAL HIGHLIGHTS</span>
+    <h2>Our Approach in Action</h2>
+    <div class="highlights-grid">
+      <div class="highlight-item">
+        <h4>Hybrid Governance</h4>
+        <p>Legal NGO structure combined with a DAO for global community participation.</p>
+      </div>
+      <div class="highlight-item">
+        <h4>Diverse Fundraising</h4>
+        <p>Seamlessly accepting crypto and fiat donations for maximum accessibility.</p>
+      </div>
+      <div class="highlight-item">
+        <h4>Impact Verification</h4>
+        <p>Milestone-based fund release with geo-tagged reporting and public dashboards.</p>
+      </div>
+      <div class="highlight-item">
+        <h4>SDG Aligned</h4>
+        <p>Mapping all activities to UN Sustainable Development Goals for global compliance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-preview" id="transparency">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <span class="card-label">CORE DIFFERENTIATOR</span>
+      <h2>Blockchain-Enabled Transparency</h2>
+      <p style="color: #94a3b8;">Every fund movement is traceable and auditable on the blockchain.</p>
+    </div>
+    <div class="dashboard-ui">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--emerald);">
+        <span>LIVE_LEDGER_SYNC</span>
+        <span>BLOCK_HEIGHT: 18,442,109</span>
+      </div>
+      <div class="ledger-row">
+        <span>0x7a2...f41</span> <span>GRANT: EDU_RESOURCES</span> <span style="color: var(--amber)">$4,500.00</span> <span class="status-badge">RELEASED</span>
+      </div>
+      <div class="ledger-row">
+        <span>0xbc5...a12</span> <span>RELIEF: FOOD_DISTRO</span> <span style="color: var(--amber)">$12,200.00</span> <span class="status-badge">RELEASED</span>
+      </div>
+      <div class="ledger-row">
+        <span>0x9f1...22b</span> <span>CLIMATE: REFOREST_NIG</span> <span style="color: var(--amber)">$8,400.00</span> <span class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--amber);">PENDING_MILESTONE</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="logo" style="margin-bottom: 10px;">CivicChain Africa Impact</div>
+      <p style="font-size: 0.8rem; color: #475569; max-width: 300px;">A blockchain-native NGO making a transparent impact across Sub-Saharan Africa.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">TWITTER</a>
+      <a href="#">GITHUB</a>
+      <a href="#">DAO GOVERNANCE</a>
+      <p style="font-family: 'Space Mono', monospace; font-size: 0.6rem; margin-top: 20px; opacity: 0.4;">BUILD_VERSION_1.0.2_SSA</p>
+    </div>
   </footer>
 
   <script>
     lucide.createIcons();
 
     // Preloader Animation
-    const bar = document.getElementById('bar');
+    const bar = document.getElementById('progress-bar');
     const preloader = document.getElementById('preloader');
-    const nodesContainer = document.getElementById('nodes');
+    const nodesBg = document.getElementById('nodes-bg');
 
-    // Create floating nodes
-    for (let i = 0; i < 20; i++) {
+    // Generate floating nodes
+    for (let i = 0; i < 25; i++) {
       const node = document.createElement('div');
-      node.className = 'node';
+      node.className = 'floating-node';
       node.style.left = Math.random() * 100 + '%';
-      node.style.width = node.style.height = Math.random() * 6 + 'px';
-      node.style.animationDelay = Math.random() * 10 + 's';
+      node.style.animationDelay = Math.random() * 8 + 's';
       node.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      nodesContainer.appendChild(node);
+      nodesBg.appendChild(node);
     }
 
-    // Simulate Loading
-    let width = 0;
+    let progress = 0;
     const interval = setInterval(() => {
-      width += Math.random() * 15;
-      if (width > 100) {
-        width = 100;
+      progress += Math.random() * 20;
+      if (progress > 100) {
+        progress = 100;
         clearInterval(interval);
         setTimeout(() => {
           preloader.style.opacity = '0';
           setTimeout(() => preloader.style.display = 'none', 800);
         }, 500);
       }
-      bar.style.width = width + '%';
+      bar.style.width = progress + '%';
     }, 150);
 
-    // Smooth reveal on scroll
+    // Scroll reveal for cards
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -334,13 +368,13 @@
           entry.target.style.transform = 'translateY(0)';
         }
       });
-    });
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.glass-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = '1s ease-out';
-      observer.observe(card);
+    document.querySelectorAll('.pillar-card, .highlight-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = '0.6s ease-out';
+      observer.observe(el);
     });
   </script>
 </body>
