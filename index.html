@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicChain Africa | Revolutionizing Aid</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gold: #FFB800;
+            --blockchain-teal: #00F2FF;
+            --africa-green: #2ECC71;
+            --deep-bg: #0A0B0D;
+            --card-bg: #16181D;
+            --text-light: #F5F5F7;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--deep-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Blockchain Grid Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary-gold), var(--blockchain-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 11, 13, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-hex {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-gold);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            margin-top: 60px;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 184, 0, 0.05) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #A0A0A0;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-gold);
+            color: black;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(255, 184, 0, 0.4);
+        }
+
+        /* Pillars Grid */
+        .section {
+            padding: 8rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--blockchain-teal);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-gold);
+        }
+
+        /* Dashboard/Stats Section */
+        .stats-bar {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            border: 1px solid var(--glass);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-item h2 {
+            font-size: 2.5rem;
+            color: var(--blockchain-teal);
+        }
+
+        /* Operational Highlights */
+        .highlight-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .highlight-icon {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--africa-green);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 10%;
+            background: #050505;
+            text-align: center;
+            border-top: 1px solid var(--glass);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-bar { flex-direction: column; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-hex"></div>
+            CIVICCHAIN <span style="color:var(--africa-green)">AFRICA</span>
+        </div>
+        <div class="nav-links">
+            <a href="#about" class="btn" style="color:white">Impact</a>
+            <a href="#connect" class="btn btn-primary">Connect Wallet</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="reveal">Revolutionizing <span class="gradient-text">Aid</span> in Sub-Saharan Africa</h1>
+            <p class="reveal">A blockchain-native NGO delivering transparent, auditable, and scalable humanitarian solutions. Empowering communities through the fusion of technology and local insight.</p>
+            <div class="reveal">
+                <a href="#about" class="btn btn-primary">Explore Our Mission</a>
+                <a href="#" class="btn" style="color:var(--blockchain-teal); margin-left: 20px;"><i class="fas fa-play"></i> Watch Proof of Impact</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section" style="padding-top: 0;">
+        <div class="stats-bar reveal">
+            <div class="stat-item">
+                <h2 id="counter1">0</h2>
+                <p>Funds Distributed (USD)</p>
+            </div>
+            <div class="stat-item">
+                <h2 id="counter2">0</h2>
+                <p>Hectares Reforested</p>
+            </div>
+            <div class="stat-item">
+                <h2 id="counter3">0</h2>
+                <p>Active Beneficiaries</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="section">
+        <h2 class="section-title reveal">Four Cardinal Pillars</h2>
+        <div class="pillars-grid">
+            <div class="pillar-card reveal">
+                <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3>North: Humanitarian</h3>
+                <p>Direct charity, healthcare, and education with every transaction tracked on-chain for 100% transparency.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+                <h3>East: Environmental</h3>
+                <p>Climate adaptation and renewable energy initiatives verified through decentralized reporting protocols.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3>South: Governance</h3>
+                <p>SmartContract grants and multi-sig wallets ensure funds are only released upon milestone verification.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon"><i class="fas fa-users-rays"></i></div>
+                <h3>West: Partnerships</h3>
+                <p>Collaborating with Web3 projects and local innovators to build digital literacy across the region.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,184,0,0.02)">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
+            <div class="reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Why <span class="gradient-text">CivicChain</span>?</h2>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-link"></i></div>
+                    <div>
+                        <h4>Blockchain Transparency</h4>
+                        <p>Every fund movement is traceable and auditable on the public ledger.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-earth-africa"></i></div>
+                    <div>
+                        <h4>SDG-Aligned Programming</h4>
+                        <p>Meticulously mapped to UN Sustainable Development Goals for global impact.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-code-branch"></i></div>
+                    <div>
+                        <h4>Hybrid Governance</h4>
+                        <p>Legal NGO structure combined with a DAO for global community participation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal" style="position: relative;">
+                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="African Innovation" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                <div style="position: absolute; bottom: -20px; right: -20px; background: var(--primary-gold); color: black; padding: 2rem; border-radius: 15px; font-weight: bold;">
+                    PILOTING IN <br> NIGERIA 2024
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="connect">
+        <h2 class="reveal" style="margin-bottom: 1rem;">Join the Movement</h2>
+        <p class="reveal" style="margin-bottom: 2rem;">Support a transparent future for Sub-Saharan Africa.</p>
+        <div class="reveal">
+            <a href="mailto:impact@civicchain.africa" class="btn btn-primary">Partner With Us</a>
+        </div>
+        <div style="margin-top: 4rem; color: #555; font-size: 0.9rem;">
+            &copy; 2024 CivicChain Africa Impact. Powered by Blockchain. Rooted in Africa.
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Simple Counter Animation
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger counters when in view
+        let counted = false;
+        window.onscroll = function() {
+            const stats = document.querySelector('.stats-bar');
+            const pos = stats.getBoundingClientRect().top;
+            if(pos < window.innerHeight && !counted) {
+                animateValue(document.getElementById("counter1"), 0, 1250000, 2000);
+                animateValue(document.getElementById("counter2"), 0, 4500, 2000);
+                animateValue(document.getElementById("counter3"), 0, 12000, 2000);
+                counted = true;
+            }
+            reveal();
+        };
+
+        // Initial check
+        reveal();
+    </script>
+</body>
+</html>
