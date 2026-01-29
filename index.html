@@ -1,381 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicChain Africa Impact | Revolutionizing Aid</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Space+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <style>
-    :root {
-      /* Palette based on PDF and Senior Design requirements */
-      --midnight: #050A18;      /* Deep indigo (Trust) */
-      --indigo: #1C3FAA;        /* Primary Web3 Blue */
-      --emerald: #10B981;       /* Secondary Africa Green */
-      --amber: #F59E0B;         /* Gold Impact Accent */
-      --off-white: #FCFCFD;     
-      --charcoal: #334155;      
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --radius-lg: 24px;
-    }
-
-    /* --- PRELOADER --- */
-    #preloader {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--midnight);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      z-index: 10000;
-      transition: opacity 0.8s ease-in-out;
-    }
-    
-    .preloader-nodes {
-      position: absolute; width: 100%; height: 100%;
-      pointer-events: none;
-    }
-    .floating-node {
-      position: absolute; width: 4px; height: 4px;
-      background: var(--amber); border-radius: 50%;
-      opacity: 0.4; animation: floatUp 8s infinite linear;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(110vh) scale(1); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-    }
-
-    .loader-box { text-align: center; z-index: 2; }
-    .loader-logo { width: 100px; margin-bottom: 20px; animation: pulse 2s infinite; }
-    
-    .progress-track {
-      width: 200px; height: 3px; background: rgba(255,255,255,0.1);
-      border-radius: 10px; overflow: hidden; margin: 0 auto;
-    }
-    .progress-fill {
-      width: 0%; height: 100%;
-      background: linear-gradient(90deg, var(--indigo), var(--emerald), var(--amber));
-      transition: width 0.3s;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--indigo)); }
-      50% { transform: scale(1.05); filter: drop-shadow(0 0 15px var(--indigo)); }
-    }
-
-    /* --- GLOBAL STYLES --- */
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-    body {
-      margin: 0; font-family: 'Inter', sans-serif;
-      background: var(--midnight); color: var(--off-white);
-      overflow-x: hidden;
-    }
-
-    /* African-inspired Tech Background (No Grid Lines) */
-    .bg-canvas {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1;
-      background: 
-        radial-gradient(circle at 10% 20%, rgba(28, 63, 170, 0.15), transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1), transparent 40%);
-    }
-
-    h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; line-height: 1.1; }
-
-    /* --- NAVIGATION --- */
-    nav {
-      position: fixed; top: 0; width: 100%; height: 90px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 6%; z-index: 1000;
-      background: rgba(5, 10, 24, 0.7); backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.2rem; }
-    .logo img { height: 32px; }
-
-    /* --- HERO SECTION --- */
-    .hero {
-      padding: 200px 6% 100px;
-      display: grid; grid-template-columns: 1.2fr 0.8fr;
-      align-items: center; gap: 60px;
-      max-width: 1400px; margin: auto;
-    }
-    .hero h1 { font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 24px; }
-    .hero h1 span { color: var(--amber); }
-    .hero p { font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-bottom: 40px; }
-
-    .btn-web3 {
-      padding: 18px 36px; border-radius: 12px;
-      font-weight: 700; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 10px;
-      transition: 0.3s; font-size: 0.9rem;
-    }
-    .btn-primary { background: white; color: var(--midnight); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-    .btn-primary:hover { background: var(--amber); transform: translateY(-3px); }
-
-    /* --- PILLARS SECTION (From PDF) --- */
-    .pillars-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; padding: 100px 6%;
-    }
-    .pillar-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      padding: 40px; border-radius: var(--radius-lg);
-      backdrop-filter: blur(10px);
-      transition: 0.4s;
-    }
-    .pillar-card:hover { border-color: var(--amber); transform: translateY(-10px); }
-    .pillar-card .icon { 
-      width: 50px; height: 50px; background: rgba(245, 158, 11, 0.1); 
-      border-radius: 12px; display: flex; align-items: center; 
-      justify-content: center; color: var(--amber); margin-bottom: 24px;
-    }
-    .pillar-card h3 { margin-bottom: 12px; font-size: 1.3rem; }
-    .pillar-card p { font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
-    .card-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--emerald); display: block; margin-bottom: 8px; }
-
-    /* --- OPERATIONAL HIGHLIGHTS (PDF Page 8) --- */
-    .highlights {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 100px 6%; border-radius: 40px; margin: 0 4%;
-    }
-    .highlights-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 40px; margin-top: 50px;
-    }
-    .highlight-item h4 { color: var(--amber); font-size: 1.1rem; margin-bottom: 10px; }
-    .highlight-item p { font-size: 0.85rem; color: #94a3b8; }
-
-    /* --- TRANSPARENCY DASHBOARD --- */
-    .dashboard-preview {
-      padding: 100px 6%; max-width: 1400px; margin: auto;
-    }
-    .dashboard-ui {
-      background: #000; border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg); padding: 40px;
-      font-family: 'Space Mono', monospace;
-    }
-    .ledger-row {
-      display: flex; justify-content: space-between;
-      padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.8rem;
-    }
-    .status-badge {
-      background: rgba(16, 185, 129, 0.15); color: var(--emerald);
-      padding: 4px 10px; border-radius: 4px; font-size: 0.7rem;
-    }
-
-    footer {
-      padding: 100px 6% 40px; border-top: 1px solid var(--glass-border);
-      display: flex; justify-content: space-between; align-items: flex-end;
-    }
-    .footer-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; font-size: 0.8rem; }
-
-    @media (max-width: 992px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero p { margin: 0 auto 40px; }
-      footer { flex-direction: column; align-items: center; gap: 40px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicChain Africa Impact | Revolutionizing Aid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Outfit', sans-serif; background-color: #020617; color: #f8fafc; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .hero-gradient { background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent); }
+        .glow-green { box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .emerald-text { background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
 </head>
-<body>
+<body class="hero-gradient min-h-screen">
 
-  <!-- PRELOADER -->
-  <div id="preloader">
-    <div class="preloader-nodes" id="nodes-bg"></div>
-    <div class="loader-box">
-      <!-- Reference to CCA 1.png -->
-      <img src="CCA 1.png" alt="CCA" class="loader-logo" onerror="this.src='https://via.placeholder.com/100?text=CCA'">
-      <div class="progress-track">
-        <div class="progress-fill" id="progress-bar"></div>
-      </div>
-      <p style="font-family: 'Space Mono', monospace; font-size: 10px; margin-top: 15px; letter-spacing: 3px; color: var(--amber);">INITIALIZING ON-CHAIN PROTOCOLS</p>
-    </div>
-  </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass py-4 px-8 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg rotate-45 border-2 border-gold-500"></div>
+            <span class="text-xl font-bold tracking-tight">CivicChain <span class="text-emerald-500">Africa</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
+            <a href="#about" class="hover:text-emerald-400 transition">About</a>
+            <a href="#pillars" class="hover:text-emerald-400 transition">Our Pillars</a>
+            <a href="#governance" class="hover:text-emerald-400 transition">Governance</a>
+            <a href="#join" class="px-5 py-2 bg-emerald-600 rounded-full hover:bg-emerald-500 transition glow-green">Join Us</a>
+        </div>
+    </nav>
 
-  <div class="bg-canvas"></div>
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 px-6 max-w-7xl mx-auto text-center">
+        <div class="inline-block px-4 py-1 border border-emerald-500/30 rounded-full text-emerald-400 text-xs font-bold mb-6 tracking-widest uppercase">
+            Blockchain-Native Humanitarianism
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Revolutionizing Aid in <br/>
+            <span class="emerald-text">Sub-Saharan Africa</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Leveraging blockchain technology to deliver transparent, auditable, and scalable humanitarian and environmental solutions.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <button class="px-8 py-4 bg-emerald-600 rounded-xl font-bold hover:scale-105 transition glow-green">Explore Our Impact</button>
+            <button class="px-8 py-4 glass rounded-xl font-bold hover:bg-white/5 transition">Read the Whitepaper</button>
+        </div>
+    </header>
 
-  <nav>
-    <div class="logo">
-      <img src="CCA 1.png" alt="Logo" onerror="this.style.display='none'">
-      CivicChain Africa
-    </div>
-    <div style="display: flex; gap: 30px;" class="nav-links">
-      <a href="#mission" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">MISSION</a>
-      <a href="#pillars" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">PILLARS</a>
-      <a href="#transparency" style="color:white; text-decoration:none; font-size: 0.8rem; font-weight: 600;">TRANSPARENCY</a>
-    </div>
-    <a href="#" class="btn-web3" style="padding: 12px 24px; background: var(--indigo); color: white;">CONNECT WALLET</a>
-  </nav>
+    <!-- Mission & Vision Section -->
+    <section id="about" class="py-20 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800" alt="Smiling African Children" class="w-full h-[400px] object-cover opacity-80" />
+        </div>
+        <div>
+            <h2 class="text-gold-500 font-bold uppercase tracking-widest text-sm mb-4">Our Mission</h2>
+            <h3 class="text-3xl font-bold mb-6">Transparent Impact for a Sustainable Future</h3>
+            <p class="text-gray-400 mb-6 leading-relaxed">
+                We use blockchain technology to ensure accountability, traceable fund flows, and measurable outcomes, fostering trust, inclusion, and sustainable development.
+            </p>
+            <div class="glass p-6 rounded-2xl border-l-4 border-emerald-500">
+                <p class="italic text-emerald-100">"A Sub-Saharan Africa where aid and empowerment are community-driven and blockchain-enabled."</p>
+            </div>
+        </div>
+    </section>
 
-  <section class="hero" id="mission">
-    <div class="hero-content">
-      <span class="card-label">// PILOTING IN NIGERIA</span>
-      <h1>Revolutionizing <span>Aid</span> in Sub-Saharan Africa.</h1>
-      <p>A pioneering organization leveraging blockchain technology to deliver transparent, auditable, and scalable humanitarian solutions.</p>
-      <div style="display: flex; gap: 20px;">
-        <a href="#" class="btn-web3 btn-primary">Support Mission <i data-lucide="heart"></i></a>
-        <a href="#" class="btn-web3" style="border: 1px solid var(--glass-border); color: white;">Read Whitepaper</a>
-      </div>
-    </div>
-    <div class="hero-viz">
-      <div class="pillar-card" style="border-color: var(--indigo);">
-        <span class="card-label">OUR VISION</span>
-        <p style="color: white; font-style: italic; font-size: 1rem;">"A Sub-Saharan Africa where humanitarian aid, environmental protection, and economic empowerment are transparent, community-driven, and blockchain-enabled."</p>
-      </div>
-    </div>
-  </section>
+    <!-- Four Cardinal Pillars -->
+    <section id="pillars" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Four Cardinal Pillars of Impact</h2>
+            <div class="w-24 h-1 bg-gold-500 mx-auto"></div>
+        </div>
 
-  <section id="pillars">
-    <div style="padding: 0 6%;">
-      <span class="card-label">// IMPACT FRAMEWORK</span>
-      <h2>Four Cardinal Pillars</h2>
-    </div>
-    <div class="pillars-grid">
-      <!-- Pillar 1 -->
-      <div class="pillar-card">
-        <span class="card-label">NORTH</span>
-        <div class="icon"><i data-lucide="hand"></i></div>
-        <h3>Humanitarian & Social</h3>
-        <p>Direct charity, healthcare, education, emergency relief, gender equality, and youth empowerment.</p>
-      </div>
-      <!-- Pillar 2 -->
-      <div class="pillar-card">
-        <span class="card-label">EAST</span>
-        <div class="icon"><i data-lucide="leaf"></i></div>
-        <h3>Climate Action</h3>
-        <p>Climate adaptation, reforestation, waste management, renewable energy, and ecosystem protection.</p>
-      </div>
-      <!-- Pillar 3 -->
-      <div class="pillar-card">
-        <span class="card-label">SOUTH</span>
-        <div class="icon"><i data-lucide="layers"></i></div>
-        <h3>Blockchain Governance</h3>
-        <p>On-chain multisig wallets, smart-contract grants, and independent audits for 100% accountability.</p>
-      </div>
-      <!-- Pillar 4 -->
-      <div class="pillar-card">
-        <span class="card-label">WEST</span>
-        <div class="icon"><i data-lucide="users"></i></div>
-        <h3>Capacity Building</h3>
-        <p>Strategic alliances with Web3 projects, supporting local innovators and SMEs in the region.</p>
-      </div>
-    </div>
-  </section>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- North -->
+            <div class="glass p-8 rounded-3xl hover:border-emerald-500/50 transition group">
+                <div class="text-emerald-500 mb-4 text-xs font-bold uppercase tracking-widest">North</div>
+                <h4 class="text-xl font-bold mb-3 group-hover:text-emerald-400 transition">Humanitarian & Social</h4>
+                <p class="text-sm text-gray-400">Direct charity, healthcare, education, and financial inclusion tracked on-chain.</p>
+            </div>
+            <!-- East -->
+            <div class="glass p-8 rounded-3xl hover:border-emerald-500/50 transition group">
+                <div class="text-emerald-500 mb-4 text-xs font-bold uppercase tracking-widest">East</div>
+                <h4 class="text-xl font-bold mb-3 group-hover:text-emerald-400 transition">Climate Action</h4>
+                <p class="text-sm text-gray-400">Reforestation, renewable energy, and waste management verified via blockchain.</p>
+            </div>
+            <!-- South -->
+            <div class="glass p-8 rounded-3xl hover:border-emerald-500/50 transition group">
+                <div class="text-emerald-500 mb-4 text-xs font-bold uppercase tracking-widest">South</div>
+                <h4 class="text-xl font-bold mb-3 group-hover:text-emerald-400 transition">Blockchain Governance</h4>
+                <p class="text-sm text-gray-400">Multi-sig wallets, smart contract grants, and public transparency dashboards.</p>
+            </div>
+            <!-- West -->
+            <div class="glass p-8 rounded-3xl hover:border-emerald-500/50 transition group">
+                <div class="text-emerald-500 mb-4 text-xs font-bold uppercase tracking-widest">West</div>
+                <h4 class="text-xl font-bold mb-3 group-hover:text-emerald-400 transition">Capacity Building</h4>
+                <p class="text-sm text-gray-400">Collaborating with Web3 projects, DAOs, and local SMEs to accelerate adoption.</p>
+            </div>
+        </div>
+    </section>
 
-  <section class="highlights">
-    <span class="card-label">// OPERATIONAL HIGHLIGHTS</span>
-    <h2>Our Approach in Action</h2>
-    <div class="highlights-grid">
-      <div class="highlight-item">
-        <h4>Hybrid Governance</h4>
-        <p>Legal NGO structure combined with a DAO for global community participation.</p>
-      </div>
-      <div class="highlight-item">
-        <h4>Diverse Fundraising</h4>
-        <p>Seamlessly accepting crypto and fiat donations for maximum accessibility.</p>
-      </div>
-      <div class="highlight-item">
-        <h4>Impact Verification</h4>
-        <p>Milestone-based fund release with geo-tagged reporting and public dashboards.</p>
-      </div>
-      <div class="highlight-item">
-        <h4>SDG Aligned</h4>
-        <p>Mapping all activities to UN Sustainable Development Goals for global compliance.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Operational Highlights -->
+    <section id="governance" class="py-20 bg-emerald-950/20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-8">Hybrid Governance: <br/><span class="text-gold-500">The Best of Both Worlds</span></h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 shrink-0 glass rounded-full flex items-center justify-center text-emerald-400 font-bold">1</div>
+                        <div>
+                            <h5 class="font-bold">NGO + DAO Structure</h5>
+                            <p class="text-sm text-gray-400">Legal compliance meets decentralized community participation.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 shrink-0 glass rounded-full flex items-center justify-center text-emerald-400 font-bold">2</div>
+                        <div>
+                            <h5 class="font-bold">Impact Verification</h5>
+                            <p class="text-sm text-gray-400">Geo-tagged reporting and milestone-based fund releases.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 shrink-0 glass rounded-full flex items-center justify-center text-emerald-400 font-bold">3</div>
+                        <div>
+                            <h5 class="font-bold">Scalable Scope</h5>
+                            <p class="text-sm text-gray-400">Starting in Nigeria, designed for all of Sub-Saharan Africa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-emerald-500/10 blur-3xl rounded-full"></div>
+                <div class="glass p-8 rounded-3xl relative z-10 border border-white/20">
+                    <h4 class="text-gold-500 font-bold mb-4 uppercase tracking-tighter text-sm">On-Chain Ledger Preview</h4>
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-black/40 rounded flex justify-between border-l-2 border-emerald-500">
+                            <span>Grant #882: Solar Farm</span>
+                            <span class="text-emerald-400 underline cursor-pointer">0x71c...a2f</span>
+                        </div>
+                        <div class="p-3 bg-black/40 rounded flex justify-between border-l-2 border-emerald-500">
+                            <span>Direct Aid: Lagos Hub</span>
+                            <span class="text-emerald-400 underline cursor-pointer">0x92b...e41</span>
+                        </div>
+                        <div class="p-3 bg-black/40 rounded flex justify-between border-l-2 border-gold-500">
+                            <span>Pending Audit...</span>
+                            <span class="text-gold-500">Scanning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="dashboard-preview" id="transparency">
-    <div style="text-align: center; margin-bottom: 50px;">
-      <span class="card-label">CORE DIFFERENTIATOR</span>
-      <h2>Blockchain-Enabled Transparency</h2>
-      <p style="color: #94a3b8;">Every fund movement is traceable and auditable on the blockchain.</p>
-    </div>
-    <div class="dashboard-ui">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--emerald);">
-        <span>LIVE_LEDGER_SYNC</span>
-        <span>BLOCK_HEIGHT: 18,442,109</span>
-      </div>
-      <div class="ledger-row">
-        <span>0x7a2...f41</span> <span>GRANT: EDU_RESOURCES</span> <span style="color: var(--amber)">$4,500.00</span> <span class="status-badge">RELEASED</span>
-      </div>
-      <div class="ledger-row">
-        <span>0xbc5...a12</span> <span>RELIEF: FOOD_DISTRO</span> <span style="color: var(--amber)">$12,200.00</span> <span class="status-badge">RELEASED</span>
-      </div>
-      <div class="ledger-row">
-        <span>0x9f1...22b</span> <span>CLIMATE: REFOREST_NIG</span> <span style="color: var(--amber)">$8,400.00</span> <span class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--amber);">PENDING_MILESTONE</span>
-      </div>
-    </div>
-  </section>
+    <!-- Footer / CTA -->
+    <footer id="join" class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Join the Movement</h2>
+            <p class="text-gray-400 mb-10">Be part of the first blockchain-native NGO delivering SDG-aligned impact across Africa.</p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#" class="text-emerald-400 hover:text-white transition">Twitter / X</a>
+                <a href="#" class="text-emerald-400 hover:text-white transition">LinkedIn</a>
+                <a href="#" class="text-emerald-400 hover:text-white transition">Discord Community</a>
+                <a href="#" class="text-emerald-400 hover:text-white transition">Contact Us</a>
+            </div>
+            <p class="mt-12 text-xs text-gray-600 uppercase tracking-widest">© 2024 CivicChain Africa Impact. All Fund Movements Traceable On-Chain.</p>
+        </div>
+    </footer>
 
-  <footer>
-    <div>
-      <div class="logo" style="margin-bottom: 10px;">CivicChain Africa Impact</div>
-      <p style="font-size: 0.8rem; color: #475569; max-width: 300px;">A blockchain-native NGO making a transparent impact across Sub-Saharan Africa.</p>
-    </div>
-    <div class="footer-links">
-      <a href="#">TWITTER</a>
-      <a href="#">GITHUB</a>
-      <a href="#">DAO GOVERNANCE</a>
-      <p style="font-family: 'Space Mono', monospace; font-size: 0.6rem; margin-top: 20px; opacity: 0.4;">BUILD_VERSION_1.0.2_SSA</p>
-    </div>
-  </footer>
-
-  <script>
-    lucide.createIcons();
-
-    // Preloader Animation
-    const bar = document.getElementById('progress-bar');
-    const preloader = document.getElementById('preloader');
-    const nodesBg = document.getElementById('nodes-bg');
-
-    // Generate floating nodes
-    for (let i = 0; i < 25; i++) {
-      const node = document.createElement('div');
-      node.className = 'floating-node';
-      node.style.left = Math.random() * 100 + '%';
-      node.style.animationDelay = Math.random() * 8 + 's';
-      node.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      nodesBg.appendChild(node);
-    }
-
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 20;
-      if (progress > 100) {
-        progress = 100;
-        clearInterval(interval);
-        setTimeout(() => {
-          preloader.style.opacity = '0';
-          setTimeout(() => preloader.style.display = 'none', 800);
-        }, 500);
-      }
-      bar.style.width = progress + '%';
-    }, 150);
-
-    // Scroll reveal for cards
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.pillar-card, .highlight-item').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = '0.6s ease-out';
-      observer.observe(el);
-    });
-  </script>
 </body>
 </html>
