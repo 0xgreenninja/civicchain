@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CivicChain Africa Impact | Revolutionizing Aid</title>
-    <!-- Fonts -->
+    <!-- Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js -->
+    <!-- Alpine.js for Slider Logic -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
@@ -19,9 +19,9 @@
             theme: {
                 extend: {
                     colors: {
-                        midnight: '#0F172A', // 60%
-                        emerald: '#10B981',  // 30%
-                        gold: '#F59E0B',     // 10%
+                        midnight: '#0F172A', 
+                        emerald: '#10B981',  
+                        gold: '#F59E0B',     
                         softwhite: '#F8FAFC',
                         slate: '#475569',
                     },
@@ -32,10 +32,14 @@
     </script>
     <style>
         [x-cloak] { display: none !important; }
-        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
-        .hero-overlay { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); }
         
-        /* Africa Pattern for Footer */
+        /* Glassmorphism Navigation */
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        
+        /* High Contrast Hero Overlay to support higher opacity images while keeping text readable */
+        .hero-overlay { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%); }
+        
+        /* Africa Pattern Footer */
         .africa-pattern-bg {
             background-color: #0F172A;
             background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
@@ -46,58 +50,66 @@
             position: absolute;
             inset: 0;
             background: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=2000') center/cover;
-            opacity: 0.05; /* Very low opacity Africa imagery */
+            opacity: 0.08;
             pointer-events: none;
+        }
+
+        .heading-gradient {
+            background: linear-gradient(to right, #10B981, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
 <body class="bg-softwhite text-midnight antialiased">
 
     <!-- Navigation -->
-    <nav x-data="{ open: false }" class="fixed w-full z-50 glass">
+    <nav x-data="{ open: false }" class="fixed w-full z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
-            <!-- Increased Logo Height to h-32 -->
+            <!-- Logo Section - h-32 as requested -->
             <a href="#" class="flex items-center">
-                <img src="CCA 1.png" alt="CivicChain Africa Logo" class="h-32 w-auto object-contain">
+                <img src="CCA 1.png" alt="CCA Logo" class="h-32 w-auto object-contain">
             </a>
             
             <div class="hidden lg:flex items-center space-x-10 text-sm font-bold uppercase tracking-widest">
                 <a href="#about" class="hover:text-emerald transition">Mission</a>
                 <a href="#pillars" class="hover:text-emerald transition">Pillars</a>
-                <a href="#blog" class="hover:text-emerald transition">Blog</a>
+                <a href="#blog" class="hover:text-emerald transition">Insights</a>
                 <div class="flex items-center gap-4">
                     <a href="#volunteer" class="border-2 border-midnight px-6 py-2 rounded-full hover:bg-midnight hover:text-white transition">Volunteer</a>
                     <a href="#join" class="bg-midnight text-white px-8 py-3 rounded-full hover:bg-emerald transition shadow-lg">Donate</a>
                 </div>
             </div>
 
-            <button @click="open = !open" class="lg:hidden text-midnight p-2">
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="lg:hidden text-midnight">
                 <svg x-show="!open" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 <svg x-show="open" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
-        <!-- Mobile Nav -->
-        <div x-show="open" x-cloak class="lg:hidden bg-white p-8 space-y-6 shadow-2xl text-center border-t border-slate/10">
+
+        <!-- Mobile Nav Dropdown -->
+        <div x-show="open" x-cloak class="lg:hidden bg-white p-8 space-y-6 shadow-2xl border-t">
             <a href="#about" class="block font-bold">Mission</a>
             <a href="#pillars" class="block font-bold">Pillars</a>
             <a href="#blog" class="block font-bold">Blog</a>
             <a href="#volunteer" class="block text-emerald font-bold">Volunteer Now</a>
-            <a href="#join" class="block bg-midnight text-white py-4 rounded-xl font-bold">Donate</a>
+            <a href="#join" class="block bg-midnight text-white py-4 rounded-xl font-bold text-center">Donate</a>
         </div>
     </nav>
 
-    <!-- Hero Image Slider Section (5 Pictures) -->
+    <!-- Hero Image Slider Section (Increased Opacity) -->
     <section class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-midnight" 
              x-data="{ active: 0, slides: [
-                'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=2000', /* Drought/Dryness */
-                'https://images.unsplash.com/photo-1469571483332-957143e493bb?q=80&w=2000', /* IDP/Refugee Housing */
-                'https://images.unsplash.com/photo-1524062793943-daac9de3f721?q=80&w=2000', /* Hardship/Realities */
-                'https://images.unsplash.com/photo-1590767187868-b8e9ece0974b?q=80&w=2000', /* Community Struggle */
-                'https://images.unsplash.com/photo-1532339142463-fd0a8979791a?q=80&w=2000'  /* Water Scarcity */
+                'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=2000', /* Community */
+                'https://images.unsplash.com/photo-1517315003714-a07399613842?q=80&w=2000', /* Landscape/Drought context */
+                'https://images.unsplash.com/photo-1489914169085-9b54fdd8f2a2?q=80&w=2000', /* Humanitarian */
+                'https://images.unsplash.com/photo-1526253038957-bce54e05968e?q=80&w=2000', /* Infrastructure */
+                'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2000'  /* Hope/Environment */
              ] }" 
              x-init="setInterval(() => active = (active + 1) % slides.length, 5000)">
         
-        <!-- Slider Images -->
+        <!-- Background Slider -->
         <template x-for="(src, index) in slides">
             <div x-show="active === index" 
                  x-transition:enter="opacity-0 duration-1000" 
@@ -105,27 +117,29 @@
                  x-transition:leave="opacity-100 duration-1000" 
                  x-transition:leave-end="opacity-0"
                  class="absolute inset-0 z-0">
-                <img :src="src" class="w-full h-full object-cover opacity-40"> <!-- Reduced Opacity -->
+                <img :src="src" class="w-full h-full object-cover opacity-60"> <!-- Increased Opacity -->
                 <div class="absolute inset-0 hero-overlay"></div>
             </div>
         </template>
 
-        <!-- Hero Content -->
+        <!-- Hero Content (Fixed White Text & Heading Gradient) -->
         <div class="relative z-10 max-w-6xl px-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald/20 border border-emerald/30 text-emerald text-xs font-bold uppercase tracking-[0.2em] mb-8">
-                <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald/20 border border-emerald/40 text-emerald text-xs font-bold uppercase tracking-[0.2em] mb-8">
                 Blockchain-Native Humanitarianism
             </div>
-            <h1 class="text-5xl md:text-8xl font-bold text-white leading-tight mb-8">
-                Revolutionizing Aid in <br/>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald to-emerald/70">Sub-Saharan Africa</span>
+            
+            <h1 class="text-5xl md:text-8xl font-extrabold leading-tight mb-8">
+                <span class="text-white block">Revolutionizing Aid in</span>
+                <span class="heading-gradient">Sub-Saharan Africa</span>
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
+
+            <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12 font-medium drop-shadow-lg">
                 CivicChain Africa Impact leverages blockchain technology to deliver transparent, auditable, and scalable humanitarian and environmental solutions.
             </p>
+
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="#join" class="bg-emerald text-white px-12 py-5 rounded-2xl font-bold hover:bg-white hover:text-midnight transition shadow-2xl">Support Our Mission</a>
-                <a href="#volunteer" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-12 py-5 rounded-2xl font-bold hover:bg-white/20 transition">Volunteer Now</a>
+                <a href="#pillars" class="bg-emerald text-white px-12 py-5 rounded-2xl font-bold hover:scale-105 transition-all shadow-xl">Our Pillars of Impact</a>
+                <a href="#volunteer" class="bg-white text-midnight px-12 py-5 rounded-2xl font-bold hover:bg-gold hover:text-white transition-all">Volunteer Now</a>
             </div>
         </div>
     </section>
@@ -134,71 +148,71 @@
     <section id="about" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1526653054275-4a4f3e9d56e3?q=80&w=1200" alt="African Community" class="rounded-[3rem] shadow-2xl relative z-10">
-                <div class="absolute -bottom-6 -right-6 glass p-8 rounded-3xl shadow-xl z-20 border-emerald/20">
-                    <p class="text-emerald font-bold text-3xl">Auditable</p>
-                    <p class="text-xs uppercase tracking-widest text-slate mt-1 font-bold">Blockchain Verified</p>
+                <img src="https://images.unsplash.com/photo-1532339142463-fd0a8979791a?q=80&w=1200" alt="Sustainability" class="rounded-[3rem] shadow-2xl relative z-10">
+                <div class="absolute -bottom-6 -right-6 bg-gold p-8 rounded-3xl shadow-xl z-20 border border-white">
+                    <p class="text-midnight font-black text-3xl">100%</p>
+                    <p class="text-[10px] uppercase tracking-widest text-midnight font-bold">Transparent Aid</p>
                 </div>
             </div>
             <div>
-                <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs mb-6">Our Mission</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-8 text-midnight">Transparent Impact for a Sustainable Future</h3>
+                <h2 class="text-emerald font-bold uppercase tracking-[0.3em] text-xs mb-6">The Mission</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-midnight mb-8">Transparent Impact for a Sustainable Future</h3>
                 <p class="text-slate text-lg leading-relaxed mb-8">
-                    Our goal is to deliver transparent, auditable, and scalable humanitarian and environmental impact throughout Sub-Saharan Africa. We use blockchain to ensure accountability and traceable fund flows.
+                    We bridge the gap between global intention and local reality. By using blockchain technology, we ensure every fund flow is traceable, auditable, and directly impactful for community-driven development.
                 </p>
-                <div class="p-8 bg-softwhite rounded-[2rem] border-l-8 border-emerald italic text-slate text-xl font-light">
+                <div class="p-8 bg-softwhite rounded-[2rem] border-l-8 border-gold italic text-slate text-xl font-light">
                     "A Sub-Saharan Africa where aid, environmental protection, and economic empowerment are community-driven and blockchain-enabled."
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cardinal Pillars Section (With Restored Images) -->
+    <!-- Cardinal Pillars (Restored Images & Layout) -->
     <section id="pillars" class="py-24 bg-softwhite">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <h2 class="text-midnight text-4xl font-bold mb-4 uppercase tracking-tighter">Four Cardinal Pillars of Impact</h2>
-                <div class="h-1.5 w-24 bg-gold mx-auto rounded-full"></div>
+                <h2 class="text-midnight text-4xl font-extrabold mb-4 uppercase">Four Cardinal Pillars of Impact</h2>
+                <div class="h-1.5 w-24 bg-emerald mx-auto rounded-full"></div>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- North -->
-                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition group">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="h-48 w-full object-cover rounded-[2rem] mb-6">
+                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all group">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="h-52 w-full object-cover rounded-[2rem] mb-6">
                     <div class="px-5 pb-8">
                         <span class="text-emerald font-bold text-xs uppercase tracking-widest">North</span>
                         <h4 class="text-xl font-bold mt-2 mb-3">Humanitarian</h4>
-                        <p class="text-sm text-slate leading-relaxed">Direct aid for healthcare, education, and emergency food relief.</p>
+                        <p class="text-sm text-slate leading-relaxed">Direct support for food security, healthcare, and emergency education relief.</p>
                     </div>
                 </div>
 
                 <!-- East -->
-                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition group lg:translate-y-8">
-                    <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=800" class="h-48 w-full object-cover rounded-[2rem] mb-6">
+                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all lg:translate-y-12">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=800" class="h-52 w-full object-cover rounded-[2rem] mb-6">
                     <div class="px-5 pb-8">
                         <span class="text-emerald font-bold text-xs uppercase tracking-widest">East</span>
                         <h4 class="text-xl font-bold mt-2 mb-3">Climate Action</h4>
-                        <p class="text-sm text-slate leading-relaxed">Reforestation and renewable energy verified by the ledger.</p>
+                        <p class="text-sm text-slate leading-relaxed">Verified reforestation and solar infrastructure projects to combat drought.</p>
                     </div>
                 </div>
 
                 <!-- South -->
-                <div class="bg-midnight text-white p-3 rounded-[2.5rem] shadow-2xl transition group">
-                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800" class="h-48 w-full object-cover rounded-[2rem] mb-6 opacity-80">
+                <div class="bg-midnight text-white p-3 rounded-[2.5rem] shadow-2xl transition-all group">
+                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800" class="h-52 w-full object-cover rounded-[2rem] mb-6 opacity-70">
                     <div class="px-5 pb-8">
                         <span class="text-gold font-bold text-xs uppercase tracking-widest">South</span>
-                        <h4 class="text-xl font-bold mt-2 mb-3">Transparency</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">On-chain multisig wallets and real-time public dashboards.</p>
+                        <h4 class="text-xl font-bold mt-2 mb-3">Governance</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed">On-chain multisig wallets and public dashboards ensuring 0% leakage.</p>
                     </div>
                 </div>
 
                 <!-- West -->
-                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition group lg:translate-y-8">
-                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800" class="h-48 w-full object-cover rounded-[2rem] mb-6">
+                <div class="bg-white p-3 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all lg:translate-y-12">
+                    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=800" class="h-52 w-full object-cover rounded-[2rem] mb-6">
                     <div class="px-5 pb-8">
                         <span class="text-emerald font-bold text-xs uppercase tracking-widest">West</span>
                         <h4 class="text-xl font-bold mt-2 mb-3">Capacity Building</h4>
-                        <p class="text-sm text-slate leading-relaxed">Web3 literacy and digital empowerment for local innovators.</p>
+                        <p class="text-sm text-slate leading-relaxed">Empowering local SMEs and digital literacy for future-proof growth.</p>
                     </div>
                 </div>
             </div>
@@ -210,58 +224,63 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-end mb-16">
                 <div>
-                    <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs mb-4">CCA Insights</h2>
-                    <h3 class="text-4xl font-bold text-midnight">Latest from the Frontlines</h3>
+                    <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs mb-4">CCA Updates</h2>
+                    <h3 class="text-4xl font-bold text-midnight">Voices from the Field</h3>
                 </div>
-                <a href="#" class="hidden md:block text-emerald font-bold uppercase tracking-widest text-sm hover:text-midnight transition">Read All Posts →</a>
+                <a href="#" class="text-emerald font-bold hover:underline">View All Stories</a>
             </div>
 
             <div class="grid md:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
+                <article class="group">
                     <div class="overflow-hidden rounded-[2.5rem] mb-6">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1523050335456-1734bdc7ef8e?q=80&w=800" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
                     </div>
-                    <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">The IDP Crisis: Rebuilding Hope with Web3</h4>
-                    <p class="text-slate leading-relaxed">How blockchain-based identities are helping displaced families access aid faster.</p>
-                </div>
-                <div class="group cursor-pointer">
+                    <h4 class="text-2xl font-bold mb-3 hover:text-emerald transition cursor-pointer">Blockchain Support for IDP Camps</h4>
+                    <p class="text-slate mb-4">How we delivered instant food relief to 5,000 families using crypto-based vouchers.</p>
+                    <span class="text-xs font-bold uppercase tracking-widest text-gold">January 2024</span>
+                </article>
+
+                <article class="group">
                     <div class="overflow-hidden rounded-[2.5rem] mb-6">
-                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=800" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
                     </div>
-                    <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">Scaling Solar: 50 Villages Audit Complete</h4>
-                    <p class="text-slate leading-relaxed">Our latest on-chain report shows 100% efficiency in solar project fund allocation.</p>
-                </div>
-                <div class="group cursor-pointer">
+                    <h4 class="text-2xl font-bold mb-3 hover:text-emerald transition cursor-pointer">Solar Grids for Northern Villages</h4>
+                    <p class="text-slate mb-4">Project update: 12 new villages now have sustainable power verified on the ledger.</p>
+                    <span class="text-xs font-bold uppercase tracking-widest text-gold">December 2023</span>
+                </article>
+
+                <article class="group">
                     <div class="overflow-hidden rounded-[2.5rem] mb-6">
                         <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
                     </div>
-                    <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">Training the Next Generation of Innovators</h4>
-                    <p class="text-slate leading-relaxed">Celebrating the graduation of 200 youth from our Lagos Web3 Literacy program.</p>
-                </div>
+                    <h4 class="text-2xl font-bold mb-3 hover:text-emerald transition cursor-pointer">Digital Literacy Program Success</h4>
+                    <p class="text-slate mb-4">Graduating 300 youth innovators who are now building local Web3 solutions.</p>
+                    <span class="text-xs font-bold uppercase tracking-widest text-gold">November 2023</span>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Footer with Africa Pattern -->
+    <!-- Footer with Pattern & Volunteer Link -->
     <footer id="volunteer" class="africa-pattern-bg text-white py-32">
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <!-- Footer Logo -->
-            <img src="CCA 1.png" alt="CCA Logo" class="h-32 mx-auto mb-12 brightness-0 invert opacity-90">
+            <!-- Increased Logo size in footer -->
+            <img src="CCA 1.png" alt="CCA Logo" class="h-32 mx-auto mb-10 brightness-0 invert">
             
-            <h2 class="text-4xl md:text-6xl font-bold mb-8">Be Part of the Solution</h2>
-            <p class="text-slate-300 text-xl mb-12">Whether you give your time or your resources, every contribution is recorded and valued on the chain.</p>
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-8">Ready to Impact Africa?</h2>
+            <p class="text-slate-300 text-xl mb-12">Whether you contribute your skills as a volunteer or your resources as a donor, every action counts on-chain.</p>
             
             <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
-                <a href="mailto:volunteer@civicchain.africa" class="bg-emerald text-white px-12 py-5 rounded-2xl font-bold hover:bg-white hover:text-midnight transition shadow-2xl">Volunteer Now</a>
-                <a href="#join" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-2xl font-bold hover:bg-white/20 transition">Donate On-Chain</a>
+                <a href="mailto:volunteer@civicchain.africa" class="bg-emerald text-white px-12 py-5 rounded-2xl font-bold hover:scale-105 transition-all shadow-2xl">Volunteer Now</a>
+                <a id="join" href="#" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-2xl font-bold hover:bg-white hover:text-midnight transition-all">Support On-Chain</a>
             </div>
 
-            <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 gap-6">
-                <p>© 2024 CivicChain Africa Impact. Revolutionizing Aid through Transparency.</p>
-                <div class="flex gap-8">
-                    <a href="#" class="hover:text-emerald transition">Twitter / X</a>
+            <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 gap-8">
+                <p>© 2024 CivicChain Africa Impact. Revolutionizing Aid through Web3.</p>
+                <div class="flex gap-10">
+                    <a href="#" class="hover:text-emerald transition">Twitter</a>
                     <a href="#" class="hover:text-emerald transition">LinkedIn</a>
-                    <a href="#" class="hover:text-emerald transition">DAO Portal</a>
+                    <a href="#" class="hover:text-emerald transition">DAO Dashboard</a>
                 </div>
             </div>
         </div>
