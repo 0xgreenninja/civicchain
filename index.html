@@ -3,128 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CivicChain Africa Impact | Institutional Transparency</title>
+    <title>CivicChain Africa Impact | Transparent. Verifiable. African-Led.</title>
     
-    <!-- Fonts: Inter is the gold standard for NGO/Gov websites -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Typography: Inter for body, Syne for modern tech headlines -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
       :root {
-        --un-blue: #008CBA;     /* Institutional Blue */
-        --brand-orange: #F58220;
-        --brand-green: #2D5A27;
-        --text-main: #1A1A1A;
-        --text-muted: #4B5563;
-        --bg-light: #F9FAFB;
+        /* Brand Colors */
+        --emerald: #2E7D5B;
+        --deep-teal: #1F8A8A;
+        --sunrise-orange: #F28C28;
+        --golden: #F2C94C;
+        --sky-blue: #2D9CDB;
+        --off-white: #F7F9F8;
+        --charcoal: #2B2B2B;
         --white: #FFFFFF;
       }
 
-      /* PRELOADER (Maintained as requested) */
+      * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--off-white);
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* PRELOADER: Blockchain Node Animation */
       #preloader {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: #0A0A0A;
+        background: var(--charcoal);
         display: flex; align-items: center; justify-content: center;
-        z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s ease;
+        z-index: 9999; transition: opacity 0.6s ease;
       }
       #preloader.hidden { opacity: 0; visibility: hidden; }
-      .preloader-content { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-      .preloader-logo { width: 200px; height: auto; animation: float 2s ease-in-out infinite; }
-      .progress-container { width: 240px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
-      .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--brand-orange), var(--brand-green)); animation: loading 2s ease-in-out forwards; }
-      @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-      @keyframes loading { 0% { width: 0%; } 100% { width: 100%; } }
+      .preloader-content { text-align: center; z-index: 10; }
+      .preloader-logo { width: 180px; margin-bottom: 20px; animation: pulse 2s infinite; }
+      .node-canvas { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.3; }
+      @keyframes pulse { 0%, 100% { opacity: 0.8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-      /* GLOBAL STYLES */
-      * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--white);
-        color: var(--text-main);
-        line-height: 1.7;
-      }
-
-      /* NAVIGATION - UN Standard */
+      /* NAVIGATION */
       nav {
-        padding: 0.8rem 8%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding: 1rem 8%;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(247, 249, 248, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed; width: 100%; top: 0; z-index: 100;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      .nav-logo img { height: 70px; width: auto; }
+      .nav-links a { margin-left: 25px; text-decoration: none; color: var(--charcoal); font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+      .nav-links a:hover { color: var(--emerald); }
+
+      .btn { padding: 0.7rem 1.8rem; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; text-transform: uppercase; font-size: 0.8rem; }
+      .btn-emerald { background: var(--emerald); color: var(--white); }
+      .btn-emerald:hover { background: var(--deep-teal); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(46, 125, 91, 0.3); }
+      .btn-outline { border: 2px solid var(--deep-teal); color: var(--deep-teal); }
+
+      /* HERO SECTION */
+      .hero { padding: 160px 8% 100px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+      .hero-text { max-width: 650px; }
+      .hero-text h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 25px; }
+      .hero-text h1 span { color: var(--emerald); }
+      .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 35px; }
+
+      /* HEXAGON CARDS: PILLARS */
+      .section { padding: 100px 8%; }
+      .section-header { text-align: center; margin-bottom: 60px; }
+      .section-header h2 { font-family: 'Syne', sans-serif; font-size: 2.5rem; color: var(--deep-teal); }
+      
+      .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+      .pillar-hex {
         background: var(--white);
-        position: sticky;
-        top: 0; z-index: 100;
-        border-bottom: 1px solid #E5E7EB;
+        padding: 50px 30px;
+        text-align: center;
+        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: 0.4s;
+        cursor: pointer;
       }
-      .nav-logo img { height: 75px; width: auto; }
-      .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 30px; font-weight: 500; font-size: 0.95rem; }
-      .nav-links a:hover { color: var(--brand-orange); }
+      .pillar-hex:hover { background: var(--emerald); color: white; transform: translateY(-10px); }
+      .pillar-hex i { font-size: 2.5rem; margin-bottom: 15px; color: var(--sunrise-orange); }
+      .pillar-hex:hover i { color: var(--golden); }
 
-      .btn-donate {
-        background: var(--brand-orange);
-        color: var(--white);
-        padding: 0.7rem 2rem;
-        border-radius: 4px; /* Professional NGO square-round */
-        text-decoration: none;
-        font-weight: 700;
-        transition: 0.3s;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-      }
-      .btn-donate:hover { background: #d66d15; }
-
-      /* HERO - Clean White Background */
-      .hero {
-        padding: 120px 8%;
-        background: var(--bg-light);
-        display: flex;
+      /* TRANSPARENCY DASHBOARD MOCKUP */
+      .dashboard-mock {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
         align-items: center;
-        justify-content: space-between;
-        gap: 60px;
       }
-      .hero-content { max-width: 650px; }
-      .hero-content h4 { color: var(--brand-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; }
-      .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1.2; margin-bottom: 25px; color: #111; }
-      .hero-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
 
-      /* STATS / DATA SECTION */
-      .section-data { padding: 80px 8%; background: var(--white); }
-      .chart-wrapper { max-width: 900px; margin: 40px auto; padding: 40px; border: 1px solid #F3F4F6; border-radius: 12px; }
-
-      /* FOUR CARDINAL PILLARS - Directly from PDF Page 3 */
-      .pillar-section { padding: 100px 8%; background: var(--bg-light); }
-      .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2px; background: #E5E7EB; border: 1px solid #E5E7EB; }
-      .pillar-card { background: var(--white); padding: 50px 40px; }
-      .pillar-card i { font-size: 2rem; margin-bottom: 25px; display: block; }
-      .pillar-card h3 { font-size: 1.25rem; margin-bottom: 15px; color: #111; }
-      .pillar-card p { font-size: 0.95rem; color: var(--text-muted); }
-
-      /* HIGHLIGHTS SECTION - From PDF Page 8 */
-      .highlights { padding: 100px 8%; }
-      .highlight-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px; }
-      .highlight-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
-      .highlight-text ul { list-style: none; }
-      .highlight-text li { margin-bottom: 20px; display: flex; gap: 15px; }
-      .highlight-text li i { color: var(--brand-orange); margin-top: 5px; }
+      /* STATS */
+      .stat-item { text-align: center; }
+      .stat-item h3 { font-size: 3rem; color: var(--emerald); font-family: 'Syne', sans-serif; }
 
       /* FOOTER */
-      footer { padding: 80px 8%; background: #111; color: #9CA3AF; }
-      .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-      .footer-logo img { height: 60px; filter: brightness(0) invert(1); margin-bottom: 20px; }
-      .footer-links h5 { color: white; margin-bottom: 25px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-      .footer-links a { display: block; color: #9CA3AF; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; }
-      .footer-links a:hover { color: white; }
+      footer { background: var(--charcoal); color: var(--white); padding: 80px 8% 40px; }
+      .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
+      .footer-logo img { height: 60px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+      .footer-links h4 { color: var(--golden); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; }
+      .footer-links a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
+      .footer-links a:hover { color: var(--white); }
 
-      .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
+      /* UTILS */
+      .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
       .reveal.active { opacity: 1; transform: translateY(0); }
 
       @media (max-width: 968px) {
-        .hero, .highlight-row { grid-template-columns: 1fr; text-align: center; }
-        .hero { padding-top: 60px; }
-        .footer-grid { grid-template-columns: 1fr; }
+        .hero, .dashboard-mock { grid-template-columns: 1fr; text-align: center; }
+        .hero { flex-direction: column-reverse; }
+        .pillar-hex { clip-path: none; border-radius: 20px; } /* Mobile usability */
       }
     </style>
 </head>
@@ -133,112 +129,85 @@
     <!-- PRELOADER -->
     <div id="preloader">
       <div class="preloader-content">
-        <img src="CCA 1.png" alt="CivicChain Africa" class="preloader-logo" />
-        <div class="progress-container">
-          <div class="progress-bar"></div>
+        <img src="CCA 1.png" alt="Logo" class="preloader-logo">
+        <div style="width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin: 0 auto;">
+            <div id="p-bar" style="width: 0; height: 100%; background: var(--emerald); transition: 2s;"></div>
         </div>
+        <p style="color:white; margin-top: 15px; letter-spacing: 2px; font-size: 10px;">INITIALIZING TRANSPARENCY PROTOCOL</p>
       </div>
     </div>
 
     <nav>
-        <div class="nav-logo"><img src="CCA 1.png" alt="CivicChain Africa Impact Logo"></div>
+        <div class="nav-logo"><img src="CCA 1.png" alt="CivicChain Africa Impact"></div>
         <div class="nav-links">
-            <a href="#about">Mission</a>
+            <a href="#impact">Impact</a>
             <a href="#pillars">Pillars</a>
-            <a href="#impact">Data</a>
-            <a href="#blog">Reports</a>
-            <a href="mailto:civicchainafrica@gmail.com" class="btn-donate">Support Our Work</a>
+            <a href="mailto:civicchainafrica@gmail.com" class="btn btn-emerald">Donate</a>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-content">
-            <h4 class="reveal">Sub-Saharan Africa Impact</h4>
-            <h1 class="reveal">Revolutionizing Aid Through Transparent Infrastructure.</h1>
-            <p class="reveal">CivicChain Africa Impact leverages blockchain technology to deliver auditable, and scalable humanitarian and environmental solutions.</p>
+        <div class="hero-text">
+            <h1 class="reveal">Transparent Aid. <span>Verifiable Impact</span>. African-Led Change.</h1>
+            <p class="reveal">We bridge the gap between global resources and local needs using blockchain to ensure every cent creates a measurable future for Sub-Saharan Africa.</p>
             <div class="reveal">
-                <a href="#pillars" class="btn-donate" style="background:var(--brand-green)">Our Strategy</a>
-                <a href="https://x.com/civic_chain" target="_blank" style="margin-left: 20px; color: var(--text-main); font-weight: 600; text-decoration: none;">
-                   <i class="fab fa-x-twitter"></i> @civic_chain
-                </a>
+                <a href="#impact" class="btn btn-emerald">View Dashboard</a>
+                <a href="#volunteer" class="btn btn-outline" style="margin-left:15px">Partner With Us</a>
             </div>
         </div>
-        <div class="reveal">
-            <!-- Modern UN-style Image representation -->
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&q=80" alt="Impact Community" style="width: 100%; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+        <div class="reveal hero-img">
+            <!-- Modern institutional imagery -->
+            <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=600&q=80" alt="African Community" style="width: 100%; border-radius: 30px;">
         </div>
     </header>
 
-    <section id="impact" class="section-data">
-        <div style="text-align: center; max-width: 800px; margin: 0 auto;" class="reveal">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">The Case for Action</h2>
-            <p style="color: var(--text-muted);">Current regional statistics highlighting the critical gaps in humanitarian and environmental security across our pilot regions.</p>
-        </div>
-        <div class="chart-wrapper reveal">
-            <canvas id="unChart"></canvas>
-        </div>
-    </section>
-
-    <!-- PILLARS - Exact content from PDF Page 3 -->
-    <section id="pillars" class="pillar-section">
-        <div style="margin-bottom: 60px;" class="reveal">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem;">Cardinal Pillars of Impact</h2>
+    <section id="pillars" class="section">
+        <div class="section-header reveal">
+            <h2>Our Four Pillars of Impact</h2>
+            <p>Direct from our cardinal strategy for regional transformation.</p>
         </div>
         <div class="pillar-grid">
-            <div class="pillar-card reveal">
-                <i class="fas fa-hands-holding-circle" style="color:var(--brand-orange)"></i>
-                <h3>Humanitarian & Social</h3>
-                <p>Direct charity, healthcare, education, emergency relief, and youth empowerment initiatives.</p>
+            <div class="pillar-hex reveal">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Humanitarian</h3>
+                <p>Direct charity, healthcare, and education delivery.</p>
             </div>
-            <div class="pillar-card reveal">
-                <i class="fas fa-leaf" style="color:var(--brand-green)"></i>
-                <h3>Environmental & Climate</h3>
-                <p>Climate adaptation, reforestation, waste management, and ecosystem protection verified on-chain.</p>
+            <div class="pillar-hex reveal">
+                <i class="fas fa-leaf"></i>
+                <h3>Environment</h3>
+                <p>Climate adaptation and reforestation verified on-chain.</p>
             </div>
-            <div class="pillar-card reveal">
-                <i class="fas fa-shield-halved" style="color:var(--un-blue)"></i>
-                <h3>Transparency & Governance</h3>
-                <p>On-chain multi-sig wallets, smart contract grants, and real-time public dashboards.</p>
+            <div class="pillar-hex reveal">
+                <i class="fas fa-shield-halved"></i>
+                <h3>Governance</h3>
+                <p>Smart contract audits and 100% auditable dashboards.</p>
             </div>
-            <div class="pillar-card reveal">
-                <i class="fas fa-handshake" style="color:var(--brand-orange)"></i>
-                <h3>Partnerships & Capacity</h3>
-                <p>Collaborations with Web3 projects, local innovators, and digital literacy programs.</p>
+            <div class="pillar-hex reveal">
+                <i class="fas fa-users-rays"></i>
+                <h3>Partnerships</h3>
+                <p>Web3 literacy and SME capacity building.</p>
             </div>
         </div>
     </section>
 
-    <!-- OPERATIONAL HIGHLIGHTS - Exact content from PDF Page 8 -->
-    <section class="highlights">
-        <div class="highlight-row">
-            <div class="reveal">
-                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=600&q=80" alt="Nigeria Pilot" style="width: 100%; border-radius: 8px;">
+    <section id="impact" class="section">
+        <div class="dashboard-mock reveal">
+            <div>
+                <h2 style="font-family: 'Syne', sans-serif; font-size: 2rem; margin-bottom: 20px;">The Transparency Dashboard</h2>
+                <p style="margin-bottom: 30px;">Follow the money. We use milestone-based funding to ensure donors can track their impact from the wallet to the community in real-time.</p>
+                <div style="display: flex; gap: 30px;">
+                    <div class="stat-item">
+                        <h3 id="stat1">0</h3>
+                        <p>Funds Tracked</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="stat2">0</h3>
+                        <p>Active Projects</p>
+                    </div>
+                </div>
             </div>
-            <div class="highlight-text reveal">
-                <h2>Operational Approach</h2>
-                <ul>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Hybrid Governance</strong>
-                            <p>Legal NGO structure for compliance combined with a DAO for community participation.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Impact Verification</strong>
-                            <p>Milestone-based fund release and geo-tagged reporting for full accountability.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Scalable Scope</strong>
-                            <p>Pilot programs currently active in Nigeria, designed for seamless Sub-Saharan scalability.</p>
-                        </div>
-                    </li>
-                </ul>
+            <div>
+                <canvas id="impactChart"></canvas>
             </div>
         </div>
     </section>
@@ -246,72 +215,81 @@
     <footer>
         <div class="footer-grid">
             <div>
-                <div class="footer-logo"><img src="CCA 1.png" alt="CivicChain White Logo"></div>
-                <p>Pioneering the delivery of transparent, auditable, and scalable humanitarian and environmental solutions across Sub-Saharan Africa.</p>
+                <div class="footer-logo"><img src="CCA 1.png" alt="Logo"></div>
+                <p style="opacity: 0.6;">A blockchain-native NGO revolutionizing humanitarian and environmental solutions across Sub-Saharan Africa.</p>
             </div>
             <div class="footer-links">
-                <h5>Contact</h5>
-                <p>civicchainafrica@gmail.com</p>
-                <p>Pilot HQ: Nigeria</p>
-                <div style="margin-top: 20px;">
-                    <a href="https://x.com/civic_chain" target="_blank" style="display:inline; margin-right: 15px;"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#" style="display:inline;"><i class="fab fa-linkedin"></i></a>
-                </div>
+                <h4>Connect</h4>
+                <a href="mailto:civicchainafrica@gmail.com">civicchainafrica@gmail.com</a>
+                <a href="https://x.com/civic_chain" target="_blank"><i class="fab fa-x-twitter"></i> @civic_chain</a>
             </div>
             <div class="footer-links">
-                <h5>Information</h5>
-                <a href="#about">Our Vision</a>
-                <a href="#impact">Impact Data</a>
-                <a href="#pillars">Four Pillars</a>
+                <h4>Links</h4>
+                <a href="#">Impact Dashboard</a>
+                <a href="#">Transparency Reports</a>
+                <a href="#">Whitepaper</a>
             </div>
         </div>
-        <div style="border-top: 1px solid #333; padding-top: 30px; text-align: center; font-size: 0.8rem;">
-            &copy; 2024 CivicChain Africa Impact. All Rights On-Chain.
+        <div style="margin-top: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 0.8rem; opacity: 0.5;">
+            &copy; 2024 CivicChain Africa Impact. Currently Piloting in Nigeria.
         </div>
     </footer>
 
     <script>
-      // Preloader
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          const preloader = document.getElementById('preloader');
-          preloader.classList.add('hidden');
-          setTimeout(() => preloader.style.display = 'none', 600);
-        }, 2000);
-      });
+        // Preloader Logic
+        window.addEventListener('load', function() {
+            document.getElementById('p-bar').style.width = '100%';
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hidden');
+                setTimeout(() => preloader.style.display = 'none', 600);
+            }, 2000);
+        });
 
-      // Scroll Reveal
-      const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-      }, { threshold: 0.15 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      // UN Style Impact Chart
-      const ctx = document.getElementById('unChart').getContext('2d');
-      new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: ['Food Security', 'Clean Water', 'Digital Literacy', 'Carbon Action', 'Aid Trust'],
-              datasets: [{
-                  label: 'Regional Need Level (%)',
-                  data: [78, 62, 92, 70, 96],
-                  borderColor: '#F58220',
-                  backgroundColor: 'rgba(245, 130, 32, 0.1)',
-                  fill: true,
-                  tension: 0.4,
-                  pointRadius: 6,
-                  pointBackgroundColor: '#F58220'
-              }]
-          },
-          options: {
-              responsive: true,
-              plugins: { legend: { display: false } },
-              scales: {
-                  y: { beginAtZero: true, grid: { borderDash: [5, 5] } },
-                  x: { grid: { display: false } }
-              }
-          }
-      });
+        // Chart & Counter Logic
+        let activated = false;
+        window.onscroll = () => {
+            const pos = document.getElementById('impact').getBoundingClientRect().top;
+            if (pos < window.innerHeight && !activated) {
+                // Counters
+                animateValue("stat1", 0, 100, 2000, "%");
+                animateValue("stat2", 0, 12, 2000, "+");
+                
+                // Chart
+                const ctx = document.getElementById('impactChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Humanitarian', 'Environment', 'Operations'],
+                        datasets: [{
+                            data: [65, 25, 10],
+                            backgroundColor: ['#2E7D5B', '#1F8A8A', '#F28C28'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { plugins: { legend: { position: 'bottom' } } }
+                });
+                activated = true;
+            }
+        };
+
+        function animateValue(id, start, end, duration, suffix) {
+            let obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + suffix;
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
     </script>
 </body>
 </html>
