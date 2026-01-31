@@ -81,15 +81,25 @@
       class="bg-softwhite text-midnight antialiased transition-colors duration-500">
 
     <!-- 1. Animated Preloader -->
-    <div id="preloader" 
-         x-show="!loaded" 
-         class="fixed inset-0 z-[100] bg-midnight flex flex-col items-center justify-center">
-        <img src="CCA 1.png" alt="Loading Logo" class="h-40 w-auto animate-pulse brightness-0 invert transition-transform duration-1000 scale-110">
-        <div class="mt-8 w-48 h-1 bg-white/10 rounded-full overflow-hidden">
-            <div class="h-full bg-emerald animate-[progress_2s_ease-in-out_infinite] w-1/2"></div>
-        </div>
-        <style> @keyframes progress { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } } </style>
+   <div id="preloader" 
+     x-show="!loaded" 
+     class="fixed inset-0 z-[100] bg-midnight flex flex-col items-center justify-center">
+
+    <img src="CCA 1.png" 
+         alt="Loading Logo" 
+         class="h-40 w-auto animate-pulse transition-transform duration-1000 scale-110">
+
+    <div class="mt-8 w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+        <div class="h-full bg-emerald animate-[progress_2s_ease-in-out_infinite] w-1/2"></div>
     </div>
+
+    <style>
+        @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+    </style>
+</div>
 
     <!-- 2. "About Us" Modal (Hidden by Default) -->
     <div x-show="modalOpen" 
