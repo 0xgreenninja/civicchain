@@ -101,7 +101,7 @@
     </style>
 </div>
 
-    <!-- 2. "About Us" Modal (Hidden by Default) -->
+    <!-- 2. "About Us" Modal -->
     <div x-show="modalOpen" 
          x-cloak
          x-transition:enter="transition opacity-0 duration-300"
@@ -151,7 +151,6 @@
             </a>
             
             <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-[0.15em] nav-link">
-                <!-- About Us Trigger -->
                 <button @click="modalOpen = true" class="hover:text-emerald transition text-midnight">About Us</button>
                 <a href="#pillars" class="hover:text-emerald transition text-midnight">Pillars</a>
                 <a href="#blog" class="hover:text-emerald transition text-midnight">Insights</a>
@@ -176,7 +175,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Africa Landscapes) -->
+    <!-- Hero Section -->
     <section class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-midnight" 
              x-data="{ active: 0, slides: [
                 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2000', 
@@ -337,8 +336,9 @@
         <div class="pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-400 gap-10 font-bold uppercase tracking-[0.2em]">
             <p>© 2024 CivicChain Africa Impact. Empowering Sub-Saharan Africa.</p>
             <div class="flex gap-12">
-                <a href="#" class="hover:text-emerald transition">Twitter / X</a>
-                <a href="#" class="hover:text-emerald transition">LinkedIn</a>
+                <!-- Official Social Links Integrated Here -->
+                <a href="https://x.com/Civic_Chain_" target="_blank" class="hover:text-emerald transition">Twitter / X</a>
+                <a href="https://www.linkedin.com/company/civicchainafrica" target="_blank" class="hover:text-emerald transition">LinkedIn</a>
                 <a href="#" class="hover:text-emerald transition">DAO Hub</a>
             </div>
         </div>
