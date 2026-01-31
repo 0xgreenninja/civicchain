@@ -36,13 +36,20 @@
     <style>
         [x-cloak] { display: none !important; }
         
-        /* Smooth Nav Glassmorphism */
+        /* Preloader Styles */
+        #preloader { transition: opacity 0.8s ease-out, visibility 0.8s; }
+        .loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* Glassmorphism Navigation */
         .glass-nav { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.04); }
         
-        /* High Contrast Hero Overlay */
+        /* Modal Glassmorphism */
+        .glass-modal { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); }
+
+        /* Hero Overlay */
         .hero-overlay { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.9) 100%); }
         
-        /* Editorial Heading Gradient */
+        /* Heading Gradient */
         .heading-gradient {
             background: linear-gradient(to right, #10B981, #F59E0B, #10B981);
             background-size: 200% auto;
@@ -52,7 +59,7 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* Authentic Africa Pattern Background */
+        /* Africa Pattern Footer */
         .africa-pattern-bg {
             background-color: #0F172A;
             background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
@@ -60,59 +67,106 @@
         }
         .africa-pattern-bg::before {
             content: "";
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2000') center/cover;
-            opacity: 0.1;
-            pointer-events: none;
+            opacity: 0.1; pointer-events: none;
         }
 
         h1, h2, h3, h4, .nav-link { font-family: 'Space Grotesk', sans-serif; }
     </style>
 </head>
-<body class="bg-softwhite text-midnight antialiased">
+<body x-data="{ modalOpen: false, loaded: false }" 
+      x-init="window.addEventListener('load', () => { setTimeout(() => loaded = true, 1500) })"
+      :class="{ 'overflow-hidden': modalOpen || !loaded }"
+      class="bg-softwhite text-midnight antialiased transition-colors duration-500">
+
+    <!-- 1. Animated Preloader -->
+    <div id="preloader" 
+         x-show="!loaded" 
+         class="fixed inset-0 z-[100] bg-midnight flex flex-col items-center justify-center">
+        <img src="CCA 1.png" alt="Loading Logo" class="h-40 w-auto animate-pulse brightness-0 invert transition-transform duration-1000 scale-110">
+        <div class="mt-8 w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald animate-[progress_2s_ease-in-out_infinite] w-1/2"></div>
+        </div>
+        <style> @keyframes progress { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } } </style>
+    </div>
+
+    <!-- 2. "About Us" Modal (Hidden by Default) -->
+    <div x-show="modalOpen" 
+         x-cloak
+         x-transition:enter="transition opacity-0 duration-300"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition opacity-100 duration-300"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[60] glass-modal flex items-center justify-center p-4 md:p-10">
+        
+        <div @click.away="modalOpen = false" 
+             class="bg-white rounded-[3rem] max-w-5xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl p-8 md:p-16">
+            
+            <button @click="modalOpen = false" class="absolute top-8 right-8 text-slate hover:text-emerald transition text-3xl">&times;</button>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-emerald font-bold uppercase tracking-widest text-xs mb-4">Our Journey</h2>
+                    <h3 class="text-4xl font-bold mb-6">Born from a need for <span class="text-gold italic underline">radical transparency.</span></h3>
+                    <p class="text-slate leading-relaxed mb-6">
+                        CivicChain Africa Impact was founded by a collective of humanitarian experts and blockchain engineers who saw a critical flaw in traditional aid: the lack of end-to-end auditability. 
+                    </p>
+                    <p class="text-slate leading-relaxed mb-8">
+                        Based in the heart of Sub-Saharan Africa, our team works directly with local communities to implement pilot programs that bypass bureaucracy and deliver value instantly via the decentralized web.
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="bg-softwhite p-4 rounded-2xl text-center flex-1 border border-slate/5">
+                            <p class="text-2xl font-bold text-midnight">2024</p>
+                            <p class="text-[10px] uppercase font-bold text-slate">Launched</p>
+                        </div>
+                        <div class="bg-softwhite p-4 rounded-2xl text-center flex-1 border border-slate/5">
+                            <p class="text-2xl font-bold text-midnight">Nigeria</p>
+                            <p class="text-[10px] uppercase font-bold text-slate">Hub Base</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-[2rem] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1000" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Navigation -->
-    <nav x-data="{ open: false }" class="fixed w-full z-50 glass-nav">
+    <nav x-data="{ mobileOpen: false }" class="fixed w-full z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 md:h-24 flex justify-between items-center">
-            <!-- CCA 1.png Logo -->
             <a href="#" class="flex items-center -ml-2 md:-ml-4 transition-transform hover:scale-105">
                 <img src="CCA 1.png" alt="CCA Logo" class="h-24 md:h-32 w-auto object-contain">
             </a>
             
-            <!-- Desktop Links -->
             <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-[0.15em] nav-link">
-                <a href="#about" class="hover:text-emerald transition">Mission</a>
-                <a href="#pillars" class="hover:text-emerald transition">Pillars</a>
-                <a href="#blog" class="hover:text-emerald transition">Insights</a>
+                <!-- About Us Trigger -->
+                <button @click="modalOpen = true" class="hover:text-emerald transition text-midnight">About Us</button>
+                <a href="#pillars" class="hover:text-emerald transition text-midnight">Pillars</a>
+                <a href="#blog" class="hover:text-emerald transition text-midnight">Insights</a>
                 <div class="flex items-center gap-3">
                     <a href="#volunteer" class="border-2 border-midnight px-5 py-2 rounded-full hover:bg-midnight hover:text-white transition">Volunteer</a>
                     <a href="#join" class="bg-midnight text-white px-7 py-2.5 rounded-full hover:bg-emerald transition shadow-lg">Donate</a>
                 </div>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button @click="open = !open" class="lg:hidden text-midnight p-2 focus:outline-none">
-                <svg x-show="!open" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <svg x-show="open" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-midnight p-2 focus:outline-none">
+                <svg x-show="!mobileOpen" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg x-show="mobileOpen" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
 
-        <!-- Mobile Nav Menu (Thumb-optimized) -->
-        <div x-show="open" x-cloak 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-10"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             class="lg:hidden absolute top-20 md:top-24 left-0 w-full bg-white p-8 space-y-6 shadow-2xl border-t text-center font-bold nav-link z-50">
-            <a href="#about" @click="open = false" class="block text-xl py-2">Mission</a>
-            <a href="#pillars" @click="open = false" class="block text-xl py-2">Impact Pillars</a>
-            <a href="#blog" @click="open = false" class="block text-xl py-2">Latest Insights</a>
-            <a href="#volunteer" @click="open = false" class="block text-emerald text-xl py-2">Volunteer Now</a>
-            <a href="#join" @click="open = false" class="block bg-midnight text-white py-5 rounded-2xl text-lg tracking-widest">DONATE NOW</a>
+        <!-- Mobile Nav Menu -->
+        <div x-show="mobileOpen" x-cloak class="lg:hidden absolute top-20 md:top-24 left-0 w-full bg-white p-8 space-y-6 shadow-2xl border-t text-center font-bold nav-link">
+            <button @click="modalOpen = true; mobileOpen = false" class="block w-full text-xl py-2">About Us</button>
+            <a href="#pillars" @click="mobileOpen = false" class="block text-xl py-2">Impact Pillars</a>
+            <a href="#blog" @click="mobileOpen = false" class="block text-xl py-2">Insights</a>
+            <a href="#join" @click="mobileOpen = false" class="block bg-midnight text-white py-5 rounded-2xl text-lg tracking-widest uppercase">Donate</a>
         </div>
     </nav>
 
-    <!-- Hero Section (Responsive Landscapes & Fluid Typography) -->
+    <!-- Hero Section (Africa Landscapes) -->
     <section class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-midnight" 
              x-data="{ active: 0, slides: [
                 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2000', 
@@ -135,18 +189,15 @@
             </div>
         </template>
 
-        <!-- Refined Hero Text (Fluid Sizing for Mobile) -->
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-10">
             <div class="max-w-5xl mx-auto">
                 <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 drop-shadow-2xl">
                     <span class="text-white block mb-2 tracking-tight">REVOLUTIONIZING AID IN</span>
                     <span class="heading-gradient uppercase tracking-tighter italic">Sub Saharan Africa</span>
                 </h1>
-
                 <p class="text-white text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-10 font-medium leading-relaxed drop-shadow-xl opacity-95">
                     A pioneering organization leveraging blockchain technology to deliver transparent, auditable, and scalable humanitarian and environmental solutions across Sub-Saharan Africa.
                 </p>
-
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <a href="#pillars" class="w-full sm:w-auto bg-emerald text-white px-8 py-4 md:py-5 rounded-2xl font-bold hover:scale-105 transition-all shadow-2xl tracking-[0.2em] uppercase text-[10px] md:text-xs">Our Impact</a>
                     <a href="#volunteer" class="w-full sm:w-auto bg-white text-midnight px-8 py-4 md:py-5 rounded-2xl font-bold hover:bg-gold hover:text-white transition-all shadow-xl uppercase text-[10px] md:text-xs tracking-[0.2em]">Volunteer Now</a>
@@ -155,7 +206,7 @@
         </div>
     </section>
 
-    <!-- Mission (Mobile Optimized Layout) -->
+    <!-- Mission -->
     <section id="about" class="py-20 md:py-32 bg-white">
         <div class="max-w-7xl mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div class="relative order-2 lg:order-1">
@@ -171,117 +222,102 @@
                 <p class="text-slate text-base md:text-lg leading-relaxed mb-8 font-light">
                     Our goal is to deliver transparent, auditable, and scalable humanitarian and environmental impact throughout Sub-Saharan Africa. We use blockchain technology to ensure accountability, traceable fund flows, and measurable outcomes.
                 </p>
-                <div class="p-8 md:p-10 bg-softwhite rounded-3xl md:rounded-[2.5rem] border-l-8 border-emerald italic text-slate text-lg md:text-xl leading-relaxed">
-                    "A Sub-Saharan Africa where humanitarian aid, environmental protection, and economic empowerment are community-driven and blockchain-enabled."
-                </div>
+                <button @click="modalOpen = true" class="text-emerald font-bold border-b-2 border-emerald pb-1 hover:text-midnight hover:border-midnight transition mb-8 uppercase tracking-widest text-xs">Learn More About Our Journey →</button>
             </div>
         </div>
     </section>
 
-    <!-- Cardinal Pillars (Responsive 4-Card Grid) -->
+    <!-- Cardinal Pillars -->
     <section id="pillars" class="py-20 md:py-32 bg-softwhite px-6 md:px-10">
-        <div class="max-w-7xl mx-auto text-center mb-16 md:mb-24">
-            <h2 class="text-midnight text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 uppercase tracking-tight leading-none">Four Cardinal Pillars of Impact</h2>
-            <div class="h-1.5 md:h-2 w-24 md:w-32 bg-gold mx-auto rounded-full"></div>
+        <div class="max-w-7xl mx-auto text-center mb-16 md:mb-24 uppercase">
+            <h2 class="text-midnight text-3xl md:text-5xl font-bold mb-4 md:mb-6 tracking-tight">Four Cardinal Pillars of Impact</h2>
+            <div class="h-2 w-32 bg-gold mx-auto rounded-full"></div>
         </div>
-
         <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-            <!-- Humanitarian Card -->
-            <div class="bg-[#1e3a8a] text-white p-4 md:p-5 rounded-[2.5rem] md:rounded-[3rem] shadow-xl hover:shadow-2xl transition-all duration-300">
-                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="h-48 md:h-56 w-full object-cover rounded-[2rem] md:rounded-[2.5rem] mb-6 md:mb-8">
-                <div class="px-4 md:px-6 pb-8 md:pb-10">
-                    <span class="text-gold font-bold text-[9px] md:text-[10px] uppercase tracking-widest">North</span>
-                    <h4 class="text-xl md:text-2xl font-bold mt-2 md:mt-4 mb-3 md:mb-4">Humanitarian</h4>
-                    <p class="text-blue-100 text-xs md:text-sm leading-relaxed font-light">Direct charity delivery, healthcare, education, and emergency relief tracked on-chain.</p>
+            <div class="bg-[#1e3a8a] text-white p-5 rounded-[3rem] shadow-xl hover:shadow-2xl transition duration-300">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="h-56 w-full object-cover rounded-[2.5rem] mb-8">
+                <div class="px-6 pb-10 font-sans">
+                    <span class="text-gold font-bold text-[10px] uppercase tracking-widest">North</span>
+                    <h4 class="text-2xl font-bold mt-4 mb-4 font-heading">Humanitarian</h4>
+                    <p class="text-blue-100 text-sm font-light">Direct charity delivery, healthcare, and emergency relief tracked on-chain.</p>
                 </div>
             </div>
-            <!-- Climate Card -->
-            <div class="bg-[#064e3b] text-white p-4 md:p-5 rounded-[2.5rem] md:rounded-[3rem] shadow-xl hover:shadow-2xl transition-all duration-300 lg:translate-y-12">
-                <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=800" class="h-48 md:h-56 w-full object-cover rounded-[2rem] md:rounded-[2.5rem] mb-6 md:mb-8">
-                <div class="px-4 md:px-6 pb-8 md:pb-10">
-                    <span class="text-gold font-bold text-[9px] md:text-[10px] uppercase tracking-widest">East</span>
-                    <h4 class="text-xl md:text-2xl font-bold mt-2 md:mt-4 mb-3 md:mb-4">Climate Action</h4>
-                    <p class="text-emerald-100 text-xs md:text-sm leading-relaxed font-light">Verified reforestation, waste management, and renewable energy for environmental protection.</p>
+            <div class="bg-[#064e3b] text-white p-5 rounded-[3rem] shadow-xl hover:shadow-2xl transition duration-300 lg:translate-y-12">
+                <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=800" class="h-56 w-full object-cover rounded-[2.5rem] mb-8">
+                <div class="px-6 pb-10">
+                    <span class="text-gold font-bold text-[10px] uppercase tracking-widest">East</span>
+                    <h4 class="text-2xl font-bold mt-4 mb-4 font-heading">Climate Action</h4>
+                    <p class="text-emerald-100 text-sm font-light">Verified reforestation and renewable energy for environmental protection.</p>
                 </div>
             </div>
-            <!-- Governance Card -->
-            <div class="bg-midnight text-white p-4 md:p-5 rounded-[2.5rem] md:rounded-[3rem] shadow-xl hover:shadow-2xl transition-all duration-300">
-                <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800" class="h-48 md:h-56 w-full object-cover rounded-[2rem] md:rounded-[2.5rem] mb-6 md:mb-8">
-                <div class="px-4 md:px-6 pb-8 md:pb-10">
-                    <span class="text-gold font-bold text-[9px] md:text-[10px] uppercase tracking-widest">South</span>
-                    <h4 class="text-xl md:text-2xl font-bold mt-2 md:mt-4 mb-3 md:mb-4">Governance</h4>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed font-light">On-chain multisig wallets, smart contract grants, and real-time public dashboards.</p>
+            <div class="bg-midnight text-white p-5 rounded-[3rem] shadow-xl hover:shadow-2xl transition duration-300">
+                <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800" class="h-56 w-full object-cover rounded-[2.5rem] mb-8 opacity-80">
+                <div class="px-6 pb-10">
+                    <span class="text-gold font-bold text-[10px] uppercase tracking-widest">South</span>
+                    <h4 class="text-2xl font-bold mt-4 mb-4 font-heading">Governance</h4>
+                    <p class="text-slate-400 text-sm font-light">On-chain multisig wallets and real-time public audit dashboards.</p>
                 </div>
             </div>
-            <!-- Web3 Growth Card -->
-            <div class="bg-[#78350f] text-white p-4 md:p-5 rounded-[2.5rem] md:rounded-[3rem] shadow-xl hover:shadow-2xl transition-all duration-300 lg:translate-y-12">
-                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800" class="h-48 md:h-56 w-full object-cover rounded-[2rem] md:rounded-[2.5rem] mb-6 md:mb-8">
-                <div class="px-4 md:px-6 pb-8 md:pb-10">
-                    <span class="text-gold font-bold text-[9px] md:text-[10px] uppercase tracking-widest">West</span>
-                    <h4 class="text-xl md:text-2xl font-bold mt-2 md:mt-4 mb-3 md:mb-4">Web3 Growth</h4>
-                    <p class="text-orange-100 text-xs md:text-sm leading-relaxed font-light">Alliances with innovators, SMEs, and digital literacy programs for community growth.</p>
+            <div class="bg-[#78350f] text-white p-5 rounded-[3rem] shadow-xl hover:shadow-2xl transition duration-300 lg:translate-y-12">
+                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800" class="h-56 w-full object-cover rounded-[2.5rem] mb-8">
+                <div class="px-6 pb-10">
+                    <span class="text-gold font-bold text-[10px] uppercase tracking-widest">West</span>
+                    <h4 class="text-2xl font-bold mt-4 mb-4 font-heading">Web3 Growth</h4>
+                    <p class="text-orange-100 text-sm font-light">Strategic alliances with innovators and digital literacy for community growth.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Blog Section (Responsive Article Stack) -->
+    <!-- Blog Section -->
     <section id="blog" class="py-20 md:py-32 bg-white px-6 md:px-10">
         <div class="max-w-7xl mx-auto mb-16 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
             <div>
-                <h2 class="text-gold font-bold uppercase tracking-[0.4em] text-[10px] md:text-[11px] mb-3 md:mb-4">CCA Insights</h2>
+                <h2 class="text-gold font-bold uppercase tracking-[0.4em] text-[10px] md:text-[11px] mb-4">Insights</h2>
                 <h3 class="text-3xl md:text-5xl font-bold text-midnight tracking-tight leading-none">Latest from the Field</h3>
             </div>
-            <a href="#" class="text-emerald font-bold hover:underline text-[12px] md:text-sm uppercase tracking-widest">View All Insights →</a>
+            <a href="#" class="text-emerald font-bold hover:underline text-sm uppercase tracking-widest">View All Insights →</a>
         </div>
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 md:gap-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
             <article class="group cursor-pointer">
-                <div class="overflow-hidden rounded-[2rem] md:rounded-[3rem] mb-6 shadow-sm aspect-video">
+                <div class="overflow-hidden rounded-[2.5rem] mb-6 shadow-sm aspect-video">
                     <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                 </div>
-                <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 group-hover:text-emerald transition">The Power of Smart Contracts</h4>
-                <p class="text-slate mb-4 md:mb-6 font-light leading-relaxed text-sm">How auditable grants are changing the donor landscape in Lagos and beyond.</p>
-                <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gold">January 2024</span>
+                <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">The Power of Smart Contracts</h4>
+                <p class="text-slate mb-6 font-light leading-relaxed text-sm">How auditable grants are changing the donor landscape in Lagos and beyond.</p>
             </article>
             <article class="group cursor-pointer">
-                <div class="overflow-hidden rounded-[2rem] md:rounded-[3rem] mb-6 shadow-sm aspect-video">
+                <div class="overflow-hidden rounded-[2.5rem] mb-6 shadow-sm aspect-video">
                     <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                 </div>
-                <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 group-hover:text-emerald transition">Solar Grids Update</h4>
-                <p class="text-slate mb-4 md:mb-6 font-light leading-relaxed text-sm">Our latest on-chain report shows 100% efficiency in solar project fund allocation.</p>
-                <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gold">December 2023</span>
+                <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">Solar Grids Update</h4>
+                <p class="text-slate mb-6 font-light leading-relaxed text-sm">Our latest on-chain report shows 100% efficiency in solar project fund allocation.</p>
             </article>
             <article class="group cursor-pointer">
-                <div class="overflow-hidden rounded-[2rem] md:rounded-[3rem] mb-6 shadow-sm aspect-video">
+                <div class="overflow-hidden rounded-[2.5rem] mb-6 shadow-sm aspect-video">
                     <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                 </div>
-                <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 group-hover:text-emerald transition">Digital Literacy Success</h4>
-                <p class="text-slate mb-4 md:mb-6 font-light leading-relaxed text-sm">Reflecting on our latest program with 300 youth graduates across Sub-Saharan Africa.</p>
-                <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gold">November 2023</span>
+                <h4 class="text-2xl font-bold mb-3 group-hover:text-emerald transition">Digital Literacy Success</h4>
+                <p class="text-slate mb-6 font-light leading-relaxed text-sm">Reflecting on our latest program with 300 youth graduates across Africa.</p>
             </article>
         </div>
     </section>
 
-    <!-- Footer (Responsive Content Alignment) -->
+    <!-- Footer -->
     <footer id="volunteer" class="africa-pattern-bg text-white py-24 md:py-32 px-6 md:px-10">
         <div class="max-w-5xl mx-auto text-center relative z-10">
-            <!-- Footer Logo -->
-            <img src="CCA 1.png" alt="CCA Logo" class="h-24 md:h-32 mx-auto mb-10 md:mb-16 brightness-0 invert opacity-90 transition-opacity hover:opacity-100">
-            
-            <h2 class="text-3xl md:text-6xl font-bold mb-8 md:mb-10 tracking-tight leading-none">Be Part of the Solution</h2>
-            <p class="text-slate-300 text-lg md:text-2xl mb-12 md:mb-16 max-w-2xl mx-auto font-light leading-relaxed">Join us in making a transparent impact. Support our mission through volunteering or secure on-chain donations.</p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-8 mb-16 md:mb-20">
-                <a href="mailto:volunteer@civicchain.africa" class="bg-emerald text-white px-10 md:px-12 py-4 md:py-5 rounded-2xl font-bold hover:scale-105 transition shadow-2xl uppercase tracking-widest text-[11px] md:text-xs">Volunteer Now</a>
-                <a id="join" href="#" class="bg-white text-midnight px-10 md:px-12 py-4 md:py-5 rounded-2xl font-bold hover:bg-gold hover:text-white transition shadow-xl uppercase tracking-widest text-[11px] md:text-xs">Donate Now</a>
+            <img src="CCA 1.png" alt="CCA Logo" class="h-24 md:h-32 mx-auto mb-16 brightness-0 invert opacity-90 hover:opacity-100 transition">
+            <h2 class="text-4xl md:text-7xl font-bold mb-10 tracking-tight leading-none">Be Part of the Solution</h2>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+                <a href="mailto:volunteer@civicchain.africa" class="bg-emerald text-white px-12 py-5 rounded-2xl font-bold hover:scale-105 transition shadow-2xl uppercase tracking-widest text-xs">Volunteer Now</a>
+                <a id="join" href="#" class="bg-white text-midnight px-12 py-5 rounded-2xl font-bold hover:bg-gold hover:text-white transition shadow-xl uppercase tracking-widest text-xs">Donate Now</a>
             </div>
-
-            <div class="pt-12 md:pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-[11px] text-slate-400 gap-8 md:gap-10 font-medium">
-                <p class="text-center md:text-left">© 2024 CivicChain Africa Impact. Revolutionizing Aid through Web3 Technology.</p>
-                <div class="flex flex-wrap justify-center gap-6 md:gap-12 uppercase tracking-[0.2em] font-bold">
+            <div class="pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-400 gap-10 font-bold uppercase tracking-[0.2em]">
+                <p>© 2024 CivicChain Africa Impact. Empowering Sub-Saharan Africa.</p>
+                <div class="flex gap-12">
                     <a href="#" class="hover:text-emerald transition">Twitter / X</a>
                     <a href="#" class="hover:text-emerald transition">LinkedIn</a>
-                    <a href="#" class="hover:text-emerald transition">DAO Dashboard</a>
+                    <a href="#" class="hover:text-emerald transition">DAO Hub</a>
                 </div>
             </div>
         </div>
