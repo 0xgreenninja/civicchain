@@ -43,7 +43,8 @@
         /* Glassmorphism Navigation */
         .glass-nav { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.04); }
         
-        /* Modal Glassmorphism */
+        /* Modal Glassmorphism 
+        */
         .glass-modal { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); }
 
         /* Hero Overlay */
@@ -132,8 +133,9 @@
             </a>
             
             <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-[0.15em] nav-link">
+                 <button @click="page = 'home'; window.scrollTo(0,0)" x-show="page === 'dao'" class="hover:text-emerald transition text-midnight">Home</button>
                 <button @click="modalOpen = true" class="hover:text-emerald transition text-midnight">About Us</button>
-                <button @click="page = 'home'; window.scrollTo(0,0)" x-show="page === 'dao'" class="hover:text-emerald transition text-midnight">Home</button>
+               
                 <a href="#pillars" x-show="page === 'home'" class="hover:text-emerald transition text-midnight">Pillars</a>
                 <button @click="page = 'dao'; window.scrollTo(0,0)" class="hover:text-emerald transition text-midnight" :class="page === 'dao' && 'text-emerald'">DAO Hub</button>
                 <a href="#blog" x-show="page === 'home'" class="hover:text-emerald transition text-midnight">Insights</a>
